@@ -13,9 +13,9 @@ var mongoose = require('mongoose');
 var cool = require('cool-ascii-faces');
 var app = express();
 
-app.set('port', (process.env.PORT || 3000));
-
+app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
+app.use(cors());
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
