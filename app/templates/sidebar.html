@@ -1,0 +1,115 @@
+<div class="sidebar">
+	<div class="entry-widget">
+		<div class="widget-profile">
+			<div class="image">
+				<img alt src="static/img/drake-bg.jpg">
+			</div>
+			<div class="portfolio">
+				<img alt src="static/img/drake.jpg">
+			</div>
+			<div class="info">
+				<h3>Drake</h3>
+				<p class="details">
+					drake is a rapper from Canada.
+					drake is a rapper from Canada.
+					drake is a rapper from Canada.
+					drake is a rapper from Canada.
+					drake is a rapper from Canada.
+					drake is a rapper from Canada.
+					drake is a rapper from Canada.
+				</p>
+				<div class="social-links">
+					
+				</div>
+			</div>
+		</div>
+	</div>		
+	<div class="entry-widget">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#tab1" data-toggle="tab" aria-expanded="true">Popular</a></li>
+			<li><a href="#tab2" data-toggle="tab" aria-expanded="true">Recent</a></li>
+			<li><a href="#tab3" data-toggle="tab" aria-expanded="false">Comments</a></li>
+		</ul>
+		<div class="tab-content" style="padding-top:20px;">
+			<div class="tab-pane fade in active" id="tab1">
+				<ul ng-repeat="post in posts | orderBy : '-hit' | limitTo : 5" class="posts-list">
+					<li>
+						<div class="post-block">
+							<div class="title">
+								<a ui-sref="root.post.read({id : post._id})">{{post.title}}</a>
+							</div>
+							<div class="post-entry">
+								<span class="ion-calendar entry-icon"></span>
+								<span ng-bind="post.uploadTime | date : 'yyyy.MM.dd'" class="entry-item"></span>
+								<span class="ion-chatbubbles entry-icon"></span>
+								<span ng-bind="post.comments.length" class="entry-item"></span>
+								<span class="ion-eye entry-icon"></span>
+								<span ng-bind="post.hit" class="entry-item"></span>
+							</div>
+							
+						</div>
+						<div class="clearfix"></div>
+					</li>
+				</ul>
+				<div class="pull">
+                    <button title="게시물 읽기" class="btn btn-common nobg-btn" ng-click="goPost()">
+                        MORE POST
+                        <i class="icon ion-android-arrow-forward"></i>
+                    </button>
+                </div>
+			</div>
+			<div class="tab-pane fade" id="tab2">
+				<ul ng-repeat="post in posts | orderBy : '-uploadTime' | limitTo : 5" class="posts-list">
+					<li>
+						<div class="post-block">
+							<div class="title">
+								<a ui-sref="root.post.read({id : post._id})">{{post.title}}</a>
+							</div>
+							<div class="post-entry">
+								<span class="ion-calendar entry-icon"></span>
+								<span ng-bind="post.uploadTime | date : 'yyyy.MM.dd'" class="entry-item"></span>
+								<span class="ion-chatbubbles entry-icon"></span>
+								<span ng-bind="post.comments.length" class="entry-item"></span>
+								<span class="ion-eye entry-icon"></span>
+								<span ng-bind="post.hit" class="entry-item"></span>
+							</div>
+							
+						</div>
+						<div class="clearfix"></div>
+					</li>
+				</ul>
+				<div class="pull">
+                    <button title="게시물 읽기" class="btn btn-common nobg-btn" ng-click="goPost()">
+                        MORE POST
+                        <i class="icon ion-android-arrow-forward"></i>
+                    </button>
+                </div>
+			</div>
+			<div class="tab-pane fade" id="tab3">
+				<ul ng-repeat="comment in posts | flatten | orderBy : '-uploadTime' | limitTo : 5" class="posts-list">
+					<li>
+						<div class="post-block">
+							<div class="title">
+								<a ui-sref="root.post.read({id : comment.postId})">{{comment.content}}</a>
+							</div>
+							<div class="post-entry">
+								<span class="ion-clock entry-icon"></span>
+								<span ng-bind="comment.uploadTime | date : 'yyyy.MM.dd hh:mm'" class="entry-item"></span>
+								<span class="ion-android-person entry-icon"></span>
+								<span ng-bind="comment.creator.displayName" class="entry-item"></span>
+							</div>
+							
+						</div>
+						<div class="clearfix"></div>
+					</li>
+				</ul>
+				<div class="pull">
+                    <button title="게시물 읽기" class="btn btn-common nobg-btn" ng-click="goPost()">
+                        MORE POST
+                        <i class="icon ion-android-arrow-forward"></i>
+                    </button>
+                </div>
+			</div>
+		</div>
+	</div>
+</div>

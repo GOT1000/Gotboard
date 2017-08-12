@@ -1,0 +1,55 @@
+
+<section>
+	<div class="account-edit-form">
+		<h2>회원정보 수정</h2>
+		
+		<form name="accountForm" novalidate>
+		<div class="account-item-pic">
+			<img ng-src="{{user.profilePic}}" class="pic">
+			<div class="remove-profile">
+				<button ng-show="user.profilePic !== '/static/img/profile_default.png'" class="btn btn-default" ng-click="removeProfilePic()">프로필 삭제</button>
+			</div>
+		</div>
+			<div class="account-form-item" align="center">
+				<div class="form-model">
+					<span ng-bind="user.email"></span>
+				</div>
+			</div>
+			<div class="form-group has-feedback" ng-class="{ 'has-error' : accountForm.displayName.$invalid && accountForm.displayName.$dirty }">
+	            <input class="form-control input-lg" type="text" name="displayName" ng-model="user.displayName" placeholder="이름" required autofocus>
+	            <span class="ion-person form-control-feedback" style="color:#999;"></span>
+	            <div class="help-block text-danger" ng-if="accountForm.displayName.$dirty" ng-messages="accountForm.displayName.$error">
+	              <div ng-message="required">이름을 입력하세요.</div>
+	            </div>
+          	</div>
+          	<div class="form-group has-feedback" ng-class="{ 'has-error' : accountForm.password.$invalid && accountForm.password.$dirty }">
+	            <input class="form-control input-lg" type="password" name="password" ng-model="user.password" placeholder="비밀번호" required>
+	            <span class="ion-key form-control-feedback" style="color:#999;"></span>
+	            <div class="help-block text-danger" ng-if="accountForm.password.$dirty" ng-messages="accountForm.password.$error">
+	              <div ng-message="required">비밀번호를 입력하세요.</div>
+	            </div>
+	         </div>
+	         <div class="form-group profilePic-edit">
+	           	<h4>프로필 이미지 수정</h4>
+	            <div ng-show="newPic" ngf-drop ng-model="newPic" ngf-pattern="image/*" class="cropArea">
+			    	<img-crop image="newPic | ngfDataUrl" result-image="croppedDataUrl" ng-init="croppedDataUrl=''" area-type="square"></img-crop>
+			    </div>
+
+			    
+			    <div ng-show="newPic" class="cropImg">
+			    	<img ng-src="{{croppedDataUrl}}" style="width:200px;height:200px;"/>
+			    </div>
+			    <p ng-show="accountForm.newPic.$error.maxSize">파일이 최대 크기를 넘었습니다.</p>
+			    <div class="form-btn-group">
+			    	<button ngf-select ng-model="newPic" accept="image/*" class="btn btn-default">파일 선택</button>
+
+			    	<button ng-click="newPic = null" ng-show="newPic" class="btn btn-warning">취소</button>
+				</div>
+	         <div class="account-edit-btn">
+				<button class="btn btn-success btn-block btn-lg" ng-click="updateProfile(croppedDataUrl,newPic.name)">확인</button>
+				<a class="btn btn-danger btn-block btn-lg" ui-sref="root.myPage">취소</a>
+			</div>
+		</form>
+		
+	</div>
+</section>

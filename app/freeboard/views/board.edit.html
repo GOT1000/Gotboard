@@ -1,0 +1,23 @@
+<form name="boardForm" novalidate class="form-horizontal" name="form">
+ <div class="form-group">
+ <label class="col-md-2">Title</label>
+ <div class="col-md-10">
+ <input type="text" ng-model="title" name="title" ng-required="true" class="form-control"/>
+ <p ng-show="boardForm.title.$error.required && (boardForm.$submitted || boardForm.title.$dirty)" class="text-danger">제목을 입력하세요.</p>
+ </div>
+ </div>
+ <div class="form-group">
+ <label class="col-md-2">Content</label>
+ <div class="col-md-10">
+ <textarea froala="froalaOptions" name="content" ng-model="content" ng-required="true" class="form-control"></textarea>
+ <p ng-show="boardForm.content.$error.required && (boardForm.$submitted || boardForm.content.$dirty)" class="text-danger">내용을 입력하세요.</p>
+ </div>
+ </div>
+
+ <div class="form-group">
+ <div class="col-md-offset-2 col-md-10" style="margin-top:30px;">
+ <button class="btn btn-primary" ng-hide="user._id!=null" ng-click="updateArticle()">확인</button>
+ <a ui-sref="root.board" class="btn btn-warning">취소</a>
+ </div>
+ </div>
+</form>

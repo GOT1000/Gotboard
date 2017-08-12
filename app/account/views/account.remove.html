@@ -1,0 +1,19 @@
+<section>
+    <div class="account-remove-form">
+      <div class="panel-body">
+        <h2>회원 탈퇴</h2>
+        <div class="account-item-pic">
+        	<img ng-src="{{user.profilePic}}" class="pic"/>
+        </div>
+        <form method="post" ng-submit="removeProfile()" name="removeProfileForm">
+          <div class="form-group has-feedback account-form-item">
+            <input class="form-control input-lg" type="password" name="password" ng-model="user.password" placeholder="Password" required>
+            <span class="ion-key form-control-feedback" style="color:#999;"></span>
+          </div>
+          <button type="submit" ng-disabled="removeProfileForm.$invalid" class="btn btn-lg  btn-block btn-danger">탈퇴</button>
+
+        </form>
+        
+      </div>
+    </div>
+</section>

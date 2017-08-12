@@ -1,0 +1,98 @@
+<section ng-show="article" ng-init="getArticle()">
+   <article>
+        <div class="blog-item-title">
+            <h2 class="blog-title">
+                <p ng-bind="article.title"></p>
+            </h2>
+            <div class="entry-meta">
+                <span class="meta-part">
+                    <span class="entry-icon ion-person"></span>
+                    <a ng-bind="article.creator.displayName"></a>
+                </span>
+                <span class="meta-part">
+                    <span class="entry-icon ion-calendar"></span>
+                    <a ng-bind="article.uploadTime | date:'medium'"></a>
+                </span>
+                <span class="meta-part">
+                    <span class="entry-icon ion-chatbubbles"></span>
+                    <span ng-bind="article.comments.length"></span>
+                </span>
+                <span class="meta-part">
+                    <span class="entry-icon ion-star"></span>
+                    <span ng-bind="article.likes.length"></span>
+                </span>
+                <span class="meta-part">
+                    <span class="entry-icon ion-eye"></span>
+                    <span ng-bind="article.hit"></span>
+                </span>
+            </div>
+        </div>
+        <div class="post-item-wrap">
+                <p ng-bind-html="article.content"></p>
+                <div class="entry-profile">
+                    <div class="profilePic"><img ng-src="{{article.creator.profilePic}}" class="pic"></div>
+                    <div class="displayName" ng-bind="article.creator.displayName"></div>
+                </div>
+                <div class="entry-btn" ng-show="currentUser && currentUser._id !== article.creator._id">
+                    <button ng-click="like(currentUser._id)" class="nobg-btn"><span class="ion-star" ng-class="{'red' : liked}"></span> 추천</button>
+                </div>
+                <div class="entry-btn" ng-show="currentUser._id === article.creator._id">
+                    <a ui-sref="root.board.edit({id : article._id})" class="nobg-btn" style="margin-right:5px;" title="수정">수정</a>
+                    <button ng-click="delete()" class="nobg-btn" title="삭제">삭제</button>
+                </div>
+                <div class="entry-more">
+                        <div class="pull">
+                            <a class="btn btn-common" ui-sref="root.board" title="뒤로">
+                                <i class="icon ion-android-arrow-back"></i>
+                                BACK
+                            </a>
+                        </div>
+                </div>
+        </div>
+    </article>
+    <article>
+        <div id="comments" class="post-comment-block">
+            <div class="entry-comment">
+                    <span>Comments ({{article.comments.length}})</span>
+            </div>
+            <ol class="comments-list">
+                <li ng-repeat="comment in article.comments">
+                    <div class="comment-box clearfix">
+                        <div class="avatar">
+                            <img alt ng-src="{{comment.creator.profilePic}}"/>
+                        </div>
+                        <div class="comment-content">
+                            <div class="comment-meta">
+                                <h4 class="comment-by" ng-bind="comment.creator.displayName">
+                                </h4>
+                                <button ng-click="deleteComment(comment._id)" ng-show="comment.creator._id === currentUser._id" ng-mouseover="show = true" ng-mouseleave="show = false" class="nobg-btn"><span class="ion-ios-trash"></span></button>
+                                <span ng-show="show">삭제</span>
+                                <span ng-bind="comment.uploadTime | date : 'yyyy-MM-dd hh:mm'"></span>
+                            </div>
+                            <p ng-bind="comment.content"></p>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </article>
+    <article>
+        <div id="respond" class="post-comment-block">
+        <form action="#" name="commentForm">
+            <h2 class="respond-title">Add Comment</h2>
+            <div class="row">
+                <div class="col-md-12" ng-show="!currentUser">
+                    로그인 후 댓글 입력이 가능합니다.
+                </div>
+                <div class="col-md-12" ng-show="currentUser">
+                    <textarea class="form-control" cols="45" id="comment" placeholder="Comment" rows="8" ng-model="commentContent" style="margin:0px 0px 20px; height:186px;" required ng-maxlength="{{maxlength}}"></textarea>
+                    <a class="btn btn-common btn-more" id="submit" ng-disabled="commentForm.$invalid" ng-click="createComment()">
+                        댓글 작성
+                    </a>
+                </div>
+            </div>
+        </form>
+        </div>
+    </article>
+</section>
+<div ng-show="!article">해당 게시물이 존재하지 않습니다.</div>

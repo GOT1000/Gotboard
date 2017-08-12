@@ -1,0 +1,28 @@
+<section>
+	<div class="profile-form">
+		<div class="profile-item-pic">
+			<img ng-src="{{user.profilePic}}" class="pic">
+		</div>
+		<div class="profile-item-name">
+			<span ng-bind="user.displayName"></span> 님
+		</div>
+		<div class="profile-item-email">
+			<span ng-bind="user.email"></span>
+		</div>
+		<div class="profile-item-wrap">
+			<div class="wrap-item">
+				<label>등급 : </label>
+				<span ng-bind="user.level"></span>
+			</div>
+			<div class="wrap-item">
+				<label>가입일 : </label>
+				<span ng-bind="user.joinTime | date:'yyyy년 MM월 dd일'"></span>
+			</div>
+		</div>
+		<div class="profile-item-btn">
+			<a ui-sref=".edit">회원 정보 수정</a>
+			<br>
+			<a ui-sref=".remove">회원 탈퇴</a>
+		</div>
+	</div>
+</section>

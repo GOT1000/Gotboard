@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <div class="center-form panel">
+      <div class="panel-body">
+        <h2 class="text-center">Sign up</h2>
+        <form method="post" ng-submit="signup()" name="signupForm">
+          <div class="form-group has-feedback" ng-class="{ 'has-error' : signupForm.displayName.$invalid && signupForm.displayName.$dirty }">
+            <input class="form-control input-lg" type="text" name="displayName" ng-model="user.displayName" placeholder="Name" required autofocus>
+            <span class="ion-person form-control-feedback" style="color:#999;"></span>
+            <div class="help-block text-danger" ng-if="signupForm.displayName.$dirty" ng-messages="signupForm.displayName.$error">
+              <div ng-message="required">이름을 입력하세요.</div>
+            </div>
+          </div>
+          <div class="form-group has-feedback" ng-class="{ 'has-error' : signupForm.email.$invalid && signupForm.email.$dirty }">
+            <input class="form-control input-lg" type="email" id="email" name="email" ng-model="user.email" placeholder="Email" required>
+            <span class="ion-at form-control-feedback" style="color:#999;"></span>
+            <div class="help-block text-danger" ng-if="signupForm.email.$dirty" ng-messages="signupForm.email.$error">
+              <div ng-message="required">이메일을 입력하세요.</div>
+              <div ng-message="pattern">적합하지 않은 이메일입니다.</div>
+            </div>
+          </div>
+          <div class="form-group has-feedback" ng-class="{ 'has-error' : signupForm.password.$invalid && signupForm.password.$dirty }">
+            <input class="form-control input-lg" type="password" name="password" ng-model="user.password" placeholder="Password" required>
+            <span class="ion-key form-control-feedback" style="color:#999;"></span>
+            <div class="help-block text-danger" ng-if="signupForm.password.$dirty" ng-messages="signupForm.password.$error">
+              <div ng-message="required">패스워드를 입력하세요.</div>
+            </div>
+          </div>
+          <div class="form-group has-feedback" ng-class="{ 'has-error' : signupForm.confirmPassword.$invalid && signupForm.confirmPassword.$dirty }">
+            <input password-match="user.password" class="form-control input-lg" type="password" name="confirmPassword" ng-model="confirmPassword" placeholder="Confirm Password">
+            <span class="ion-key form-control-feedback" style="color:#999;"></span>
+            <div class="help-block text-danger" ng-if="signupForm.confirmPassword.$dirty" ng-messages="signupForm.confirmPassword.$error">
+              <div ng-message="compareTo">패스워드가 일치하지 않습니다.</div>
+            </div>
+          </div>
+          <button type="submit" ng-disabled="signupForm.$invalid" class="btn btn-lg btn-block btn-primary">Sign up</button>
+          <br/>
+          <p class="text-center text-muted"><small>계정이 있으십니까?</small><a ui-sref="root.login"> <small>로그인</small></a></p>
+        </form>
+      </div>
+    </div>
+</div>
+</div>

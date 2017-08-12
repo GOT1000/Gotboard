@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gotboard</title>
+    <script src="/libs/jquery/jquery.min.js"></script>
+     <link href="//fonts.googleapis.com/css?family=Roboto|Montserrat:400,700|Open+Sans:400,300,600" rel="stylesheet">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="//cdn.jsdelivr.net/animatecss/3.2.0/animate.css" rel="stylesheet">
+  <link href="/libs/froala-editor/css/froala_editor.css" rel="stylesheet"/>
+  <link href="/libs/froala-editor/css/froala_style.css" rel="stylesheet"/>
+  <link href="/libs/froala-editor/css/plugins/colors.min.css" rel="stylesheet"/>
+  <link href="/libs/froala-editor/css/plugins/image.min.css" rel="stylesheet"/>
+  <link href="/libs/froala-editor/css/plugins/image_manager.min.css" rel="stylesheet"/>
+  <link href="/libs/froala-editor/css/plugins/file.min.css" rel="stylesheet"/>
+  <link href="/libs/froala-editor/css/plugins/table.min.css" rel="stylesheet"/>
+  <link href="/libs/froala-editor/css/plugins/video.min.css" rel="stylesheet"/>
+  <link href="/libs/froala-editor/css/plugins/code_view.min.css" rel="stylesheet"/>
+  <link href="/libs/froala-editor/css/plugins/emoticons.min.css" rel="stylesheet"/>
+  <link href="/libs/ng-img-crop/ng-img-crop.css" rel="stylesheet"/>
+</head>
+<body id="home" class="home blog infinite-scroll">
+<div ui-view="header"></div>
+<div id="content">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8" ui-view="container"></div>
+			<div class="col-md-4" ng-class="{hide : isCurrentPath('/login') || isCurrentPath('/signup')}" ui-view="sidebar"></div>
+		</div>
+	</div>
+</div>
+<div ui-view="footer"></div>
+<script src="libs/angular/angular.min.js"></script>
+<script src="libs/angular-ui-router/angular-ui-router.min.js"></script>
+<script src="libs/angular-route/angular-route.min.js"></script>
+<script src="libs/angular-resource/angular-resource.min.js"></script>
+<script src="libs/angular-messages/angular-messages.min.js"></script>
+<script src="libs/angular-animate/angular-animate.min.js"></script>
+<script src="libs/angular-sanitize/angular-sanitize.min.js"></script>
+<script src="libs/angular-toastr/angular-toastr.tpls.js"></script>
+<script src="libs/ng-file-upload/ng-file-upload-shim.min.js"></script>
+<script src="libs/ng-file-upload/ng-file-upload.min.js"></script>
+<script src="libs/ng-img-crop/ng-img-crop.js"></script>
+
+<script src="libs/froala-editor/js/froala_editor.min.js"></script>
+<script src="libs/froala-editor/js/froala-sanitize.js"></script>
+<script src="libs/froala-editor/js/angular-froala.js"></script>
+<script src="libs/froala-editor/js/plugins/align.min.js"></script>
+<script src="libs/froala-editor/js/plugins/code_view.min.js"></script>
+<script src="libs/froala-editor/js/plugins/colors.min.js"></script>
+<script src="libs/froala-editor/js/plugins/emoticons.min.js"></script>
+<script src="libs/froala-editor/js/plugins/file.min.js"></script>
+<script src="libs/froala-editor/js/plugins/font_family.min.js"></script>
+<script src="libs/froala-editor/js/plugins/font_size.min.js"></script>
+<script src="libs/froala-editor/js/plugins/image.min.js"></script>
+<script src="libs/froala-editor/js/plugins/image_manager.min.js"></script>
+<script src="libs/froala-editor/js/plugins/link.min.js"></script>
+<script src="libs/froala-editor/js/plugins/table.min.js"></script>
+<script src="libs/froala-editor/js/plugins/url.min.js"></script>
+<script src="libs/froala-editor/js/plugins/video.min.js"></script>
+
+
+<script src="libs/oclazyload/ocLazyLoad.min.js"></script>
+<script src="libs/satellizer/satellizer.min.js"></script>
+<script src="libs/dirPagination.js"></script>
+
+<script src="libs/bootstrap/dist/js/bootstrap.js"></script>
+
+<script src="app.js"></script>
+
+<script src="home/home.client.controller.js"></script>
+<script src="home/directives/passwordMatch.js"></script>
+<script src="home/directives/passwordStrength.js"></script>
+
+<script src="account/routes/account.client.routes.js"></script>
+<script src="account/controllers/user.client.controller.js"></script>
+<script src="account/services/account.client.service.js"></script>
+
+<script src="post/routes/post.client.routes.js"></script>
+<script src="post/controllers/post.client.controller.js"></script>
+<script src="post/services/post.client.service.js"></script>
+
+<script src="freeboard/routes/board.client.routes.js"></script>
+<script src="freeboard/controllers/board.client.controller.js"></script>
+<script src="freeboard/services/board.client.service.js"></script>
+
+
+</body>
+</html>

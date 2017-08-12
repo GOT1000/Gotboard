@@ -1,0 +1,37 @@
+<form name="postForm" novalidate class="form-horizontal" name="form">
+ <div class="form-group">
+ <label class="col-md-2">Title</label>
+ <div class="col-md-10">
+ <input type="text" ng-model="title" name="title" ng-required="true" class="form-control"/>
+ <p ng-show="postForm.title.$error.required && (postForm.$submitted || postForm.title.$dirty)" class="text-danger">제목을 입력하세요.</p>
+ </div>
+ </div>
+ <div class="form-group">
+ <label class="col-md-2">Content</label>
+ <div class="col-md-10">
+ <textarea froala="froalaOptions" name="content" ng-model="content" ng-required="true" class="form-control"></textarea>
+ <p ng-show="postForm.content.$error.required && (postForm.$submitted || postForm.content.$dirty)" class="text-danger">내용을 입력하세요.</p>
+ </div>
+ </div>
+
+ <div class="form-group">
+ <label class="col-md-2">Cover<br>(선택사항)</label>
+ <div class="col-md-10">
+    <button class="btn btn-default" ngf-select ng-model="cover" name="cover" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="2MB">파일 선택</button>
+    <span ng-show="cover"> {{cover.name}}</span>
+    <img ngf-src="cover" style="width:50px;height:50px;">
+    <p ng-show="postForm.cover.$error.maxSize">파일이 최대 크기를 넘었습니다.</p>
+    <div class="button-group" style="margin-top:15px;">
+    	<button ng-click="cover = null" ng-show="cover" class="btn btn-danger">취소</button>
+	</div>
+ <div class="form-group">
+ <div class="col-md-offset-2 col-md-10" style="margin-top:30px;">
+ <button class="btn btn-primary" ng-hide="user._id!=null" ng-click="createPost(cover)">확인</button>
+ <a ui-sref="root.post" class="btn btn-warning">취소</a>
+ <span class="progress" ng-show="cover.progress >= 0">
+        <div style="width:{{cover.progress}}%" 
+            ng-bind="post.cover.progress + '%'"></div>
+      </span>
+ </div>
+ </div>
+</form>

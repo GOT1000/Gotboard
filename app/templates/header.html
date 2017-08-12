@@ -1,0 +1,43 @@
+<header>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                </button>
+                <div id="logo">
+                    <a href="/" class="navbar-brand" title="GOTBOARD" rel="home"><h1 class="site-title">HOME</h1></a>
+                </div>
+            </div>
+             <div id="navbar" class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul id="menu-all-pages" class="nav navbar-nav">
+                        <li id="menu-item-1636" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-1636" ng-class="{active : isCurrentPath('/')}"><a href="/">Home</a></li>
+                        <li id="menu-item-1636" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-1636 dropdown" ng-class="{active : isCurrentPath('/post') || isCurrentPath('/board')}">
+                        <a href="#" titel="BLOG" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="false">
+                            Blog
+                            <span class="caret"></span>
+                        </a>
+                        <ul role="menu" class="dropdown-menu">
+                            <li id="menu-item-1693" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1693"
+                             ng-class="{active : isCurrentPath('/post')}">
+                                    <a ui-sref=".post" title="Posts">Posts</a>
+                            </li>
+                             <li id="menu-item-1693" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1693"
+                              ng-class="{active : isCurrentPath('/board')}">
+                                    <a ui-sref=".board" title="FreeBoard">FreeBoard</a>
+                            </li>
+                        </ul>
+                        </li>
+                        <li id="menu-item-1801" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-1801" ng-class="{active : isCurrentPath('/about')}"><a ui-sref=".about">About</a></li>
+                        <li id="menu-item-1801" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-1801" ng-class="{active : isCurrentPath('/login')}"><a ui-sref=".login" ng-show="!isAuthenticated()">Log in</a></li>
+                        <li ng-class="{active : isCurrentPath('/signup')}"><a ui-sref=".signup" ng-show="!isAuthenticated()">Sign up</a></li>
+                        <li id="menu-item-1801" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-1801" ng-class="{active : isCurrentPath('/myPage')}"><a ui-sref=".myPage" ng-show="isAuthenticated()">My Page</a></li>
+                        <li><a href="#" ng-click="logout()" ng-show="isAuthenticated()">Log out</a></li>
+                    </ul>
+                </div> 
+        </div>
+    </nav>
+</header><!-- Header Section End -->

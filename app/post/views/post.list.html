@@ -1,0 +1,59 @@
+<section  ng-init="getPosts()">
+    <article dir-paginate="post in posts | filter : q | itemsPerPage : pageSize" current-page="currentPage">
+        <div class="blog-item-title">
+            <h2 class="blog-title">
+            <a title="게시물 읽기" ui-sref=".read({id : post._id})" ng-bind="post.title"></a>
+            </h2>
+            <div class="entry-meta">
+                <span class="meta-part">
+                    <span class="entry-icon ion-person"></span>
+                    <a ng-bind="post.creator.displayName"></a>
+                </span>
+                <span class="meta-part">
+                    <span class="entry-icon ion-calendar"></span>
+                    <span ng-bind="post.uploadTime | date:'medium'"></span>
+                </span>
+                <span class="meta-part">
+                    <span class="entry-icon ion-chatbubbles"></span>
+                    <span ng-bind="post.comments.length"></span>
+                </span>
+                <span class="meta-part">
+                    <span class="entry-icon ion-star"></span>
+                    <span ng-bind="post.likes.length"></span>
+                </span>
+                <span class="meta-part">
+                    <span class="entry-icon ion-eye"></span>
+                    <span ng-bind="post.hit"></span>
+                </span>
+            </div>
+        </div>
+        <div class="blog-item-wrap">
+            <div ng-show="post.cover" class="image" >
+                <img alt ng-src="{{post.cover}}">
+            </div>
+            <div class="content">
+                <div ng-bind-html="post.content"></div>
+                <div class="entry-more">
+                <div class="pull">
+                    <a title="게시물 읽기" class="btn btn-common" ui-sref=".read({id : post._id})">
+                        READ MORE 
+                        <i class="icon ion-android-arrow-forward"></i>
+                    </a>
+                </div>
+            </div>
+            </div>
+            
+        </div>
+    </article>
+
+    <div class="text-center">
+          <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="post/views/dirPagination.tpl.html"></dir-pagination-controls>
+    </div>
+    <div class="text-center search-block">
+         <input ng-model="q" id="search" class="form-control" placeholder="검색어 입력(3글자 이상)">
+    </div>
+
+    <div ng-hide="!currentUser" style="margin-bottom:15px;">
+        <a title="게시물 작성" ui-sref=".create" class="btn btn-default">게시물 작성</a>
+    </div>
+</section>
