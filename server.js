@@ -12,7 +12,7 @@ app.set('view engine', 'ejs');
 
 mongoose.connect(process.env.MONGODB_URI);
 
-var Books = require('.models/books');
+var Books = require('./models/books');
 
 app.get('/', function(request, response) {
   response.render('pages/index');
