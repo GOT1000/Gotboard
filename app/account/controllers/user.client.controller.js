@@ -5,12 +5,12 @@ angular.module('gotboard').controller('LoginController',[
     '$rootScope',
     '$window',
     'toastr',
-    function($scope,$auth,$location,$rootScope,$window,toastr){
+    function($scope,$auth,$state,$rootScope,$window,toastr){
         $scope.login = function(){
             $auth.login($scope.user)
                 .then(function(response){
                    toastr.success('로그인 했습니다!');
-                   $location.path('/');
+                   $state.go('root.home');
                 })
                 .catch(function(error){
                     toastr.error(error.data.message,error.status+"s");
@@ -26,12 +26,12 @@ angular.module('gotboard').controller('SignupController',[
     '$auth',
     'toastr',
     '$location',
-    function($scope,$auth,toastr,$location){
+    function($scope,$auth,toastr,$state){
         $scope.signup = function(){
             $auth.signup($scope.user)
             .then(function(response){
                 toastr.success('회원가입에 성공했습니다.');
-                $location.path('/login');
+                $state.go('root.home');
             })
             .catch(function(error){
                 toastr.error(error.data.message,error.status);
