@@ -9,6 +9,9 @@ angular.module('gotboard')
 		    },
 		    removeProfile: function(profileData) {
 		    	return $http.post('/api/users/removeUser', profileData);
+		    },
+		    authenticate : function(user){
+		    	return $http.post('auth/login',user);
 		    }
 		}
 	})

@@ -4,18 +4,28 @@ angular.module('gotboard').controller('LoginController',[
     '$location',
     '$rootScope',
     '$window',
+    'Account',
     'toastr',
-    function($scope,$auth,$location,$rootScope,$window,toastr){
+    function($scope,$auth,$location,$rootScope,$window,Account,toastr){
         $scope.login = function(){
-            $auth.login($scope.user)
+            /*$auth.login($scope.user)
                 .then(function(response){
                    toastr.success('로그인 했습니다!');
                    $location.path('/');
                 })
                 .catch(function(error){
                     toastr.error(error.data.message,error.status+"s");
-                })
+                })*/
 
+            Account.authenticate($scope.user)
+            .then(function(response){
+               $auth.setToken(response);
+                toastr.success("로그인 했습니다.");
+                $location.path('/');
+            })
+            .catch(function(error){
+                toastr.error(error.data.message,error.status);
+            })
         }
 
     }

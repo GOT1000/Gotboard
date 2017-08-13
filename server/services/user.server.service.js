@@ -32,6 +32,7 @@ function ensureAuthenticated(req, res, next) {
 }
 
 function createJWT(user) {
+  console.log("들어옴");
   var payload = {
     sub: user._id,
     iat: moment().unix(),
