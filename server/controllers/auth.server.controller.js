@@ -11,6 +11,7 @@ router.get('/login',login);
 module.exports = router;
 
 function login(req,res){
+    console.log(req.body);
     res.send("sex");
 }
 function authenticate(req,res){
