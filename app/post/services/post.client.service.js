@@ -11,7 +11,7 @@ angular.module('gotboard')
 				return $http.delete('/api/posts/'+id);
 			},
 			createComment : function(id,comment){
-				return $http.post('/api/posts/'+id+'/comment'); 
+				return $http.post('/api/posts/'+id+'/comment',comment); 
 			},
 			deleteComment : function(id,commentId){
 				return $http.delete('/api/posts/'+id+'/comment/'+commentId);

@@ -1,60 +1,33 @@
-angular.module('gotboard').factory('Board', Service);
-
-var apiAddr = 'http://localhost:3000/api';
-
-Service.$inject = ['$http'];
-
-function Service($http){
-	var url = "";
-	return {
-		getArticles : function(){
-			url = apiAddr + '/articles';
-			return $http.get(url);
-		},
-		getArticle : function(id){
-			url = apiAddr + '/articles/' + id;
-			return $http.get(url);
-		},
-		createArticle : function(article){
-			url = apiAddr + '/articles';
-			return $http.post(url,article);
-		},
-		updateArticle : function(article){
-			url = apiAddr + '/articles/'+article._id;
-			return $http.put(url,article);
-		},
-		deleteArticle : function(id){
-			url = apiAddr + '/articles/' + id;
-			return $http.delete(url);
-		},
-		createComment : function(id,comment){
-			url = apiAddr + '/articles/' + id + '/comment';
-			return $http.post(url,comment); 
-		},
-		deleteComment : function(id,commentId){
-			url = apiAddr + '/articles/' + id + "/comment/" + commentId;
-			return $http.delete(url);
-		},
-		initLike : function(id,user){
-			url = apiAddr + '/articles/' + id + '/like';
-			return $http.post(url,user);
-		},
-		like : function(id,user){
-			url = apiAddr + '/articles/' + id + '/like';
-			return $http.put(url,user);
-		}
-	}
-}
-
-	/*function($resource){
-		return $resource('api/posts/:id',{
-			id : '@_id'
-		},{
-			get : {
-				method : 'GET'
-			},
-			update : {
-				method : 'PUT'
+angular.module('gotboard').factory('Board', 
+		function($http){
+			return{
+				getArticles : function(){
+					return $http.get("/api/articles");
+				},
+				getArticle : function(id){
+					return $http.get("/api/articles/"+id);
+				},
+				createArticle : function(article){
+					return $http.post("/api/articles",article);
+				},
+				updateArticle : function(article){
+					return $http.put("/api/articles/"+article._id,article);
+				},
+				deleteArticle : function(id){
+					return $http.delete("/api/articles/"+id);
+				},
+				createComment : function(id,comment){
+					return $http.post("/api/articles/"+id+"/comment",comment); 
+				},
+				deleteComment : function(id,commentId){
+					return $http.delete("/api/articles/"+id+"/comment/"+commentId);
+				},
+				initLike : function(id,user){
+					return $http.post("/api/articles/"+id+"/like",user);
+				},
+				like : function(id,user){
+					return $http.put("/api/articles/"+id+"/like",user);
 			}
-		})
-	}*/
+			}
+		}
+);
