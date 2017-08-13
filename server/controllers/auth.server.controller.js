@@ -6,9 +6,13 @@ var User = require('mongoose').model('User');
 
 router.post('/login', authenticate);
 router.post('/signup',signup);
+router.get('/login',login);
 
 module.exports = router;
 
+function login(req,res){
+    res.send("sex");
+}
 function authenticate(req,res){
     User.findOne({email : req.body.email}, '+password',function(err,user){
         if(!user){
