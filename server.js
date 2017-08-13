@@ -14,6 +14,8 @@ var cool = require('cool-ascii-faces');
 var forceSsl = require('force-ssl-heroku');
 var app = express();
 
+process.env.NODE_ENV = (process.env.NODE_ENV && (process.env.NODE_ENV).trim().toLowerCase() == 'production') ? 'production' : 'development';
+
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
 app.use(cors());
@@ -40,6 +42,14 @@ if(app.get('env') === 'production'){
         protocol == 'https' ? next() : res.redirect('https://'+req.hostname + req.url);
     })
 }
+
+if(process.env.NODE_ENV == 'production'){
+	console.log("production");
+}else if(process.env.NODE_ENV == 'development'){
+	console.log("dev");
+}
+
+console.log(process.env.NODE_ENV);
 
 app.use('/api/users',require('./server/controllers/api/user.server.controller'));
 app.use('/api/posts',require('./server/controllers/api/post.server.controller'));
