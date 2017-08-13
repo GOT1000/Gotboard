@@ -11,7 +11,7 @@ var expressJwt = require('express-jwt');
 var config = require('./config');
 var mongoose = require('mongoose');
 var cool = require('cool-ascii-faces');
-var sslRedirect = require('heroku-ssl-redirect');
+var forceSsl = require('force-ssl-heroku');
 var app = express();
 
 app.set('port', (process.env.PORT || 5000));
@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 app.use(methodOverride());
 app.use(express.static(path.join(__dirname,'/app')));
 app.use(session({secret : config.TOKEN_SECRET,resave : false,saveUninitialized:true}));
-app.use(sslRedirect());
+app.use(forceSsl);
 
 mongoose.connect(config.MONGODB);
 mongoose.connection.on('error',function(err){
