@@ -504,12 +504,14 @@ hr.section-divider {
   padding-bottom:20px;
 }
 .post article{
-  overflow:hidden;
+  overflow-x:hidden;
+  margin:0;
   padding:0 20px;
 }
 @media (max-width:768px){
   .post article{
     padding-top:20px;
+    margin-right:0;
   }
 }
 .post h2{
