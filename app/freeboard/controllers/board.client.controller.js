@@ -136,8 +136,6 @@ angular.module('gotboard')
 		        }
 			}
 
-/*			$scope.like = initLike();*/
-
 			function initLike(){
 				var user = $scope.currentUser;
 
@@ -286,5 +284,3 @@ angular.module('gotboard')
 
 		}
 	)
-
-

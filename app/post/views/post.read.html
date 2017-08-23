@@ -1,5 +1,6 @@
 <section ng-show="post" ng-init="getPost()">
    <article>
+    <div class="post-item">
         <div class="blog-item-title">
             <h2 class="blog-title">
                 <p ng-bind="post.title"></p>
@@ -52,6 +53,7 @@
                         </div>
                 </div>
         </div>
+        </div>
     </article>
     <article>
         <div id="comments" class="post-comment-block">
@@ -80,16 +82,16 @@
         </div>
     </article>
     <article>
-        <div id="respond" class="post-comment-block">
+        <div id="respond" class="post-comment-block" style="border:none;">
         <form action="#" name="commentForm">
             <h2 class="respond-title">Add Comment</h2>
             <div class="row">
                 <div class="col-md-12" ng-show="!currentUser">
                     로그인 후 댓글 입력이 가능합니다.
                 </div>
-                <div class="col-md-12" ng-show="currentUser">
-                    <textarea class="form-control" cols="45" id="comment" placeholder="Comment" rows="8" ng-model="commentContent" style="margin:0px 0px 20px; height:186px;" required ng-maxlength="{{maxlength}}"></textarea>
-                    <a class="btn btn-common btn-more" id="submit" ng-disabled="commentForm.$invalid" ng-click="createComment()">
+                <div class="col-md-12 text-block" ng-show="currentUser">
+                    <textarea class="form-control" cols="45" id="comment" placeholder="Comment" ng-model="commentContent" style="margin:0px 0px 20px; height:186px; width:100%;" required ng-maxlength="{{maxlength}}"></textarea>
+                    <a class="btn btn-more" id="submit" ng-disabled="commentForm.$invalid" ng-click="createComment()">
                         댓글 작성
                     </a>
                 </div>

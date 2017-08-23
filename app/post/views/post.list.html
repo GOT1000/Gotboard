@@ -1,5 +1,7 @@
 <section  ng-init="getPosts()">
+
     <article dir-paginate="post in posts | filter : q | itemsPerPage : pageSize" current-page="currentPage">
+    <div class="blog-item">
         <div class="blog-item-title">
             <h2 class="blog-title">
             <a title="게시물 읽기" ui-sref=".read({id : post._id})" ng-bind="post.title"></a>
@@ -28,11 +30,11 @@
             </div>
         </div>
         <div class="blog-item-wrap">
-            <div ng-show="post.cover" class="image" >
-                <img alt ng-src="{{post.cover}}">
+            <div ng-show="post.cover" class="image" ng-style="{'background':'url('+post.cover+')','background-size':'cover','background-position':'center'}">
+
             </div>
             <div class="content">
-                <div ng-bind-html="post.content"></div>
+                <div ng-bind-html="(post.content | limitTo : 100) + '...'"></div>
                 <div class="entry-more">
                 <div class="pull">
                     <a title="게시물 읽기" class="btn btn-common" ui-sref=".read({id : post._id})">
@@ -44,6 +46,7 @@
             </div>
             
         </div>
+    </div>
     </article>
 
     <div class="text-center">

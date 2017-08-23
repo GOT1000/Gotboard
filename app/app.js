@@ -117,3 +117,9 @@ app.value('froalaConfig',{
 angular.element(document).ready(function(){
     angular.bootstrap(document,['gotboard'])
 })
+
+angular.module('gotboard').run(function($rootScope){
+    $rootScope.$on("$routeChangeSuccess",function(event,currentRoute,previousRoute){
+        window.scrollTo(0,0);
+    })
+})

@@ -1,10 +1,152 @@
-<div>
-    goosebumps
-    <input type="text" ng-model="text1">
-    <div ng-show="">
 
-        Hello <span ng-bind="currentUser"></span>!
-        <span ng-model="currentUser">
-        </span>
+<section>
+	<div id="bootstrap-touch-slider" class="carousel bs-slider fade  control-round indicators-line" data-ride="carousel" data-pause="hover" data-interval="5000" >
+
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#bootstrap-touch-slider" ng-repeat="post in posts | limitTo : 5" ng-class="{'active' : post == posts[0]}" ng-init="postNo = $index" data-slide-to="{{postNo}}"></li>
+            </ol>
+
+            <!-- Wrapper For Slides -->
+            <div class="carousel-inner" role="listbox">
+            	<div class="item" ng-repeat="post in posts | limitTo : 5" ng-class="{'active' : post == posts[0]}">
+            	<!-- Slide Background -->
+                   <!--  <img ng-src="{{post.cover}}"  class="slide-image"/> -->
+                   <div class="bg" ng-style="{'background-image':'url('+post.cover+')','background-size':'cover'}"></div>
+                    <div class="bs-slider-overlay"></div>
+
+                    <div class="container">
+                        <div>
+                            <!-- Slide Text Layer -->
+                            <div class="slide-text slide_style_center">
+                                <h2 data-animation="animated zoomInRight"><a ui-sref="root.post.read({id: post._id})">{{post.title}}</a></h2>
+                                <span class="feat-divider"></span>
+                                <p data-animation="animated fadeInLeft" ng-bind="post.uploadTime | date: 'yyyy년 M월 d일'"></p>
+                            </div>
+                        </div>
+                    </div>
+            	</div>
+                
+            </div><!-- End of Wrapper For Slides -->
+
+            <!-- Left Control -->
+            <a class="left carousel-control" href="#bootstrap-touch-slider" role="button" data-slide="prev">
+                <span class="fa fa-angle-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+
+            <!-- Right Control -->
+            <a class="right carousel-control" href="#bootstrap-touch-slider" role="button" data-slide="next">
+                <span class="fa fa-angle-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+
+    </div> <!-- End  bootstrap-touch-slider Slider -->
+    <script type="text/javascript">
+		$('#bootstrap-touch-slider').bsTouchSlider();
+	</script>
+	<div class="main-section" id="main" style="margin-top:20px;">
+        <div class="blog-posts-title">
+            <span>RECENT POSTS</span>
+            <div class="border"></div>
+        </div>
+		<div class="widget Blog" data-version="1">
+			<div class="blog-posts hfeed">
+				<div class="post-outer" ng-repeat="post in posts">
+					<div ng-if="$index == 0" class="post">
+						<div class="block-image">
+							<div class="thumb">
+								<a ui-sref="root.post.read({id:post._id})" ng-style="{'background':'url('+post.cover+') no-repeat center','background-size':'cover'}" class="img-effect">
+									<span class="thumb-overlay"></span>
+								</a>
+							</div>
+						</div>
+						<div class="post-header"></div>
+						<article>
+							<font class="retitle">
+								<h2>
+									<a ui-sref="root.post.read({id:post._id})">{{post.title | uppercase}}</a>
+								</h2>
+							</font>
+							<div class="date-header">
+								<div id="meta-post">
+									<abbr class="published">
+										{{post.uploadTime | date:'yyyy년 MM월 dd일'}}
+									</abbr>
+                                    <span class="comments"><span class="ion-chatbubbles icon"></span>{{post.comments.length}}</span>
+                                    <span class="hits"><span class="ion-eye icon"></span>{{post.hit}}</span>
+								</div>
+								<div class="resumo">
+									<span ng-bind-html="(post.content | limitTo : 200)+'...'"></span>
+								</div>
+
+							</div>
+							<div class="button">
+								<a class="btn btn-border" ui-sref="root.post.read({id:post._id})">READ MORE</a>
+							</div>
+						</article>
+						<div style="clear:both;"></div>
+						<div class="post-footer"></div>
+					</div>
+                    <div ng-if="$index !== 0" class="etc-post">
+                        <div class="post-block">
+                            <div class="title">
+                                <a ng-bind="post.title | uppercase" ui-sref="root.post.read({id:post._id})"></a>
+                            </div>
+                            <div class="entry-meta">
+                                <span class="published">{{post.uploadTime | date:'yyyy년 M월 d일'}}</span>
+                                <span class="comments"><span class="ion-chatbubbles icon"></span>{{post.comments.length}}</span>
+                                <span class="hits"><span class="ion-eye icon"></span>{{post.hit}}</span>
+                            </div>
+                        </div>
+                        <div class="border"></div>
+                    </div>
+				</div>
+			</div>
+		</div>
+        <div class="entry-more">
+            <div class="pull">
+                <a class="btn btn-common" ui-sref="root.post" title="더 보기" style="font-weight: 500; padding-top:20px;margin-left:5px;">
+                    포스트 더 보기
+                    <i class="icon ion-android-arrow-forward"></i>
+                </a>
+            </div>
+        </div>
+	</div>
+    <div class="board-section">
+       <div class="blog-articles-title">
+            <span>RECENT ARTICLES</span>
+            <div class="border"></div>
+        </div>
+        <div class="widget Board" data-version="1">
+            <div class="blog-articles hfeed">
+                <div class="article-outer" ng-repeat="article in articles | limitTo : 5">
+                    <div class="article">
+                        <div class="article-block">
+                            <div class="title">
+                                <a ng-bind="(article.title | limitTo : 30)" ui-sref="root.board.read({id:article._id})"></a>
+                            </div>
+                            <div class="entry-meta">
+                            	<img ng-src="{{article.creator.profilePic}}" style="width:25px;height:25px;border-radius: 50%;">
+                                <span ng-bind="article.creator.displayName" style="margin-right:5px;"></span>
+                                <span>|</span>
+                                <span class="published">{{article.uploadTime | date:'yyyy. M. d'}}</span>
+                                <span class="comments"><span class="ion-chatbubbles icon"></span>{{article.comments.length}}</span>
+                                <span class="hits"><span class="ion-eye icon"></span>{{article.hit}}</span>
+                            </div>
+                        </div>
+                        <div class="border"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="entry-more">
+            <div class="pull">
+                <a class="btn btn-common" ui-sref="root.board" title="더 보기" style="font-weight: 500; padding-top:20px;margin-left:5px;">
+                    게시판 더 보기
+                    <i class="icon ion-android-arrow-forward"></i>
+                </a>
+            </div>
+        </div>
     </div>
-</div>
+</section>
