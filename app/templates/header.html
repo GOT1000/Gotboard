@@ -48,18 +48,27 @@
             </div>
              <div id="navbar" class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul id="menu-all-pages" class="nav navbar-nav left">
-                        <li id="menu-item-1636" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-1636" ng-class="{active : isCurrentPath('/')}"><a href="/">HOME</a></li>
-                        <li id="menu-item-1636" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-1636" ng-class="{active : isCurrentPath('/post')}"><a ui-sref=".post" title="Posts">POST</a></li>
-                        <li id="menu-item-1636" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-1636" ng-class="{active : isCurrentPath('/board')}"><a ui-sref=".board" title="Board">BOARD</a></li>
-                        <li id="menu-item-1801" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-1801" ng-class="{active : isCurrentPath('/about')}"><a ui-sref=".about">ABOUT</a></li>
+                        <li id="menu-item-1636" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-1636" ng-class="{active : isCurrentPath('/')}"><a href="/" class="dropdown-toggle">Home</a></li>
+                        <li id="menu-item-1636" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-1636" ng-class="{active : isCurrentPath('/post')}"><a ui-sref=".post" title="Posts">Post</a></li>
+                        <li id="menu-item-1636" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-1636" ng-class="{active : isCurrentPath('/board')}"><a ui-sref=".board" title="Board">Board</a></li>
+                        <li id="menu-item-1801" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-1801" ng-class="{active : isCurrentPath('/about')}"><a ui-sref=".about">About</a></li>
                     </ul>
                     <ul id="menu-all-pages" class="nav navbar-nav right">
-                        <li id="menu-item-1801" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-1801" ng-class="{active : isCurrentPath('/login')}"><a ui-sref=".login" ng-show="!isAuthenticated()">LOG IN</a></li>
-                        <li><a ui-sref=".signup" ng-show="!isAuthenticated()">SIGN UP</a></li>
-                        <li id="menu-item-1801" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-1801" ng-class="{active : isCurrentPath('/signup')}"><a ui-sref=".myPage" ng-show="isAuthenticated()">MY PAGE</a></li>
-                        <li><a href="#" ng-click="logout()" ng-show="isAuthenticated()">LOG OUT</a></li>
+                        <li id="menu-item-1801" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-1801" ng-class="{active : isCurrentPath('/login')}"><a ui-sref=".login" ng-show="!isAuthenticated()">Log In</a></li>
+                        <li><a ui-sref=".signup" ng-show="!isAuthenticated()">Sign Up</a></li>
+                        <li id="menu-item-1801" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-1801" ng-class="{active : isCurrentPath('/signup')}"><a ui-sref=".myPage" ng-show="isAuthenticated()">My Page</a></li>
+                        <li><a href="#" ng-click="logout()" ng-show="isAuthenticated()">Log Out</a></li>
                     </ul>
                 </div> 
         </div>
     </nav>
+    <script>
+        
+            $('.nav a').click(function(){
+                if($(window).width() <= 768){
+                    $('.navbar-toggle').click();
+                }
+            })
+
+    </script>
 </header><!-- Header Section End -->

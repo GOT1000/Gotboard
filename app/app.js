@@ -14,7 +14,9 @@ var app = angular
         'froala',
         'ngFileUpload',
         'ngImgCrop',
-        'angularUtils.directives.dirPagination'
+        'angularUtils.directives.dirPagination',
+        'cl.paging',
+        'yaru22.angular-timeago'
     ]);
 
 app.config(function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider){
@@ -117,9 +119,16 @@ app.value('froalaConfig',{
 angular.element(document).ready(function(){
     angular.bootstrap(document,['gotboard'])
 })
+angular.module('gotboard').run(function($rootScope, $window) {
 
-angular.module('gotboard').run(function($rootScope){
-    $rootScope.$on("$routeChangeSuccess",function(event,currentRoute,previousRoute){
-        window.scrollTo(0,0);
-    })
-})
+  $rootScope.$on('$routeChangeSuccess', function () {
+
+    var interval = setInterval(function(){
+      if (document.readyState == 'complete') {
+        $window.scrollTo(0, 0);
+        clearInterval(interval);
+      }
+    }, 200);
+
+  });
+});

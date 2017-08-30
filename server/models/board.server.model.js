@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
     autoIncrement = require('mongoose-auto-increment'),
-    Schema = mongoose.Schema
+    Schema = mongoose.Schema,
+    mongoosePaginate = require('mongoose-paginate')
     ;
 
 var articleSchema = new Schema({
@@ -46,4 +47,5 @@ articleSchema.plugin(autoIncrement.plugin,{
     field : 'numId',
     startAt : 1
 });
+mongoosePaginate(articleSchema);
 module.exports = mongoose.model('Article',articleSchema);

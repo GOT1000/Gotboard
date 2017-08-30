@@ -55,6 +55,7 @@ app.use('/api/users',require('./server/controllers/api/user.server.controller'))
 app.use('/api/posts',require('./server/controllers/api/post.server.controller'));
 app.use('/api/articles',require('./server/controllers/api/board.server.controller'));
 app.use('/auth',require('./server/controllers/auth.server.controller'));
+app.use('/',require('./server/controllers/index.server.controller'));
 
 app.listen(app.get('port'), function() {
   console.log('Server Listening on port', app.get('port')); 

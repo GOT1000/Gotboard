@@ -7,12 +7,14 @@ var uuid = require('uuid');
 var User = require('../../models/user.server.model');
 var path = require('path');
 var Article = require('../../models/board.server.model');
+
 /*var userService = require('../../services/user.server.service');*/
 
 router.get('/',listArticle)
+	  .get('/:page',pagingArticle)
 	  .post('/',multipartyMiddleware,createArticle);
-router.get('/:id',readArticle)
-	  .put('/:id',multipartyMiddleware,updateArticle)
+router.get('/view/:id',readArticle)
+	  router.put('/:id',multipartyMiddleware,updateArticle)
       .delete('/:id',deleteArticle);
 router.post('/:id/comment',createComment)
 	  .delete('/:id/comment/:commentId',deleteComment);
@@ -20,6 +22,8 @@ router.post('/:id/like',initLike)
 	  .put('/:id/like',like);
 
 module.exports = router;
+
+
 
 function listArticle(req,res){
 /*	Post.find({},function(err,data){
@@ -29,6 +33,7 @@ function listArticle(req,res){
 		}
 		res.send(data);
 	})*/
+	console.log(req.params);
 	Article.find({},[],{sort:{uploadTime: -1}}).populate(['creator','comments.creator'])
 	.exec(function(err,article,next){
 		if(err){
@@ -36,6 +41,17 @@ function listArticle(req,res){
 		}
 
 		res.send(article);
+	})
+}
+function pagingArticle(req,res){
+	console.log(req.params.page)
+	var page = req.params.page;
+	Article.paginate({},{page: page, limit:1, populate:'creator',sort:'-uploadTime'},function(err,result){
+		console.log(result);
+		if(err){
+			console.log(err);
+		}
+		res.send(result);
 	})
 }
 function createArticle(req,res){

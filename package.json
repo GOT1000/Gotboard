@@ -33,6 +33,7 @@
     "moment": "^2.18.1",
     "mongoose": "^4.11.3",
     "mongoose-auto-increment": "^5.0.1",
+    "mongoose-paginate": "^5.0.3",
     "morgan": "^1.8.2",
     "path": "^0.12.7",
     "querystring": "^0.2.0",

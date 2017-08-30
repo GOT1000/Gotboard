@@ -1,6 +1,7 @@
 angular.module('gotboard')
 	.controller('Post.IndexController',
-		function($scope,Posts,Account,$auth,toastr){
+		function($scope,Posts,Account,$auth,toastr,$window){
+			$window.scrollTo(0,0);
 			Posts.getPosts().then(function(res){
 				$scope.posts = res.data;
 			}).catch(function(err){

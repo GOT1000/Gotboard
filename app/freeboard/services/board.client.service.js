@@ -4,8 +4,18 @@ angular.module('gotboard').factory('Board',
 				getArticles : function(){
 					return $http.get("/api/articles");
 				},
+				pagingArticles : function(data){
+					var http;
+					if(data.search != undefined){
+						http = $http.get("/api/articles/"+data.currentPage+'/?search='+data.search);
+					}else{
+						http = $http.get("/api/articles/"+data.currentPage);
+					}
+
+					return http;
+				},
 				getArticle : function(id){
-					return $http.get("/api/articles/"+id);
+					return $http.get("/api/articles/view/"+id);
 				},
 				createArticle : function(article){
 					return $http.post("/api/articles",article);

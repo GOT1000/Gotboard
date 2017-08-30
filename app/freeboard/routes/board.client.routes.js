@@ -10,7 +10,12 @@ angular.module('gotboard').config(
 	        }
 	        return deferred.promise;
     	}];		
-
+    	$urlRouterProvider.when('/board',function($state){
+    		$state.go('root.board.pageNum',{pageNum:1})
+    	});
+    	$urlRouterProvider.when('/board/',function($state){
+    		$state.go('root.board.pageNum',{pageNum:1})
+    	});
 		$stateProvider
 			.state('root.board',{
 	            url:'/board',
@@ -20,6 +25,9 @@ angular.module('gotboard').config(
 	                    controller : 'Board.IndexController as vm'
 	                }
 	            }
+	        })
+	        .state('root.board.pageNum',{
+	        	url: '/:pageNum'
 	        })
 			.state('root.board.create',{
 				url : '/create',

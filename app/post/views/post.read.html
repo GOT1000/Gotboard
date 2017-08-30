@@ -70,9 +70,9 @@
                             <div class="comment-meta">
                                 <h4 class="comment-by" ng-bind="comment.creator.displayName">
                                 </h4>
+                                <span ng-bind="comment.uploadTime | date : 'yyyy-MM-dd hh:mm'"></span>
                                 <button ng-click="deleteComment(comment._id)" ng-show="comment.creator._id === currentUser._id" ng-mouseover="show = true" ng-mouseleave="show = false" class="nobg-btn"><span class="ion-ios-trash"></span></button>
                                 <span ng-show="show">삭제</span>
-                                <span ng-bind="comment.uploadTime | date : 'yyyy-MM-dd hh:mm'"></span>
                             </div>
                             <p ng-bind="comment.content"></p>
                         </div>
@@ -100,4 +100,4 @@
         </div>
     </article>
 </section>
-<div ng-show="!post">해당 게시물이 존재하지 않습니다.</div>
+<div ng-show="!post" style="margin-top:50px;margin-left:5px;">Loading...</div>

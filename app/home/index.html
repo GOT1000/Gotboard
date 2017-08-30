@@ -19,7 +19,7 @@
                         <div>
                             <!-- Slide Text Layer -->
                             <div class="slide-text slide_style_center">
-                                <h2 data-animation="animated zoomInRight"><a ui-sref="root.post.read({id: post._id})">{{post.title}}</a></h2>
+                                <a ui-sref="root.post.read({id: post._id})"><h2 data-animation="animated zoomInRight">{{post.title}}</h2></a>
                                 <span class="feat-divider"></span>
                                 <p data-animation="animated fadeInLeft" ng-bind="post.uploadTime | date: 'yyyy년 M월 d일'"></p>
                             </div>
@@ -52,7 +52,7 @@
         </div>
 		<div class="widget Blog" data-version="1">
 			<div class="blog-posts hfeed">
-				<div class="post-outer" ng-repeat="post in posts">
+				<div class="post-outer" ng-repeat="post in posts | limitTo : 7">
 					<div ng-if="$index == 0" class="post">
 						<div class="block-image">
 							<div class="thumb">
@@ -65,13 +65,13 @@
 						<article>
 							<font class="retitle">
 								<h2>
-									<a ui-sref="root.post.read({id:post._id})">{{post.title | uppercase}}</a>
+									<a ui-sref="root.post.read({id:post._id})">{{post.title}}</a>
 								</h2>
 							</font>
 							<div class="date-header">
 								<div id="meta-post">
 									<abbr class="published">
-										{{post.uploadTime | date:'yyyy년 MM월 dd일'}}
+										{{post.uploadTime | timeAgo}}
 									</abbr>
                                     <span class="comments"><span class="ion-chatbubbles icon"></span>{{post.comments.length}}</span>
                                     <span class="hits"><span class="ion-eye icon"></span>{{post.hit}}</span>
@@ -91,10 +91,10 @@
                     <div ng-if="$index !== 0" class="etc-post">
                         <div class="post-block">
                             <div class="title">
-                                <a ng-bind="post.title | uppercase" ui-sref="root.post.read({id:post._id})"></a>
+                                <a ng-bind="post.title" ui-sref="root.post.read({id:post._id})"></a>
                             </div>
                             <div class="entry-meta">
-                                <span class="published">{{post.uploadTime | date:'yyyy년 M월 d일'}}</span>
+                                <span class="published">{{post.uploadTime | timeAgo}}</span>
                                 <span class="comments"><span class="ion-chatbubbles icon"></span>{{post.comments.length}}</span>
                                 <span class="hits"><span class="ion-eye icon"></span>{{post.hit}}</span>
                             </div>
@@ -122,18 +122,26 @@
             <div class="blog-articles hfeed">
                 <div class="article-outer" ng-repeat="article in articles | limitTo : 5">
                     <div class="article">
+                        <div class="article-profile">
+                            <img ng-src="{{article.creator.profilePic}}" style="width:45px;height:45px;border-radius: 50%;">
+                        </div>
                         <div class="article-block">
                             <div class="title">
                                 <a ng-bind="(article.title | limitTo : 30)" ui-sref="root.board.read({id:article._id})"></a>
+
                             </div>
+
                             <div class="entry-meta">
-                            	<img ng-src="{{article.creator.profilePic}}" style="width:25px;height:25px;border-radius: 50%;">
                                 <span ng-bind="article.creator.displayName" style="margin-right:5px;"></span>
                                 <span>|</span>
                                 <span class="published">{{article.uploadTime | date:'yyyy. M. d'}}</span>
                                 <span class="comments"><span class="ion-chatbubbles icon"></span>{{article.comments.length}}</span>
                                 <span class="hits"><span class="ion-eye icon"></span>{{article.hit}}</span>
                             </div>
+
+                        </div>
+                        <div class="article-ago">
+                                {{article.uploadTime | timeAgo}}
                         </div>
                         <div class="border"></div>
                     </div>

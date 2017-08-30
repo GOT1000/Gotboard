@@ -21,6 +21,9 @@ angular.module('gotboard')
 			},
 			like : function(id,user){
 				return $http.put('/api/posts/'+id+'/like',user);
+			},
+			recentComment : function(){
+				return $http.get('/recentComment');
 			}
 		}
 	});

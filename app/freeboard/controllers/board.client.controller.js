@@ -1,19 +1,79 @@
 angular.module('gotboard')
 	.controller('Board.IndexController',
-		function($scope,Board,Account,$auth,toastr){
-			Board.getArticles().then(function(res){
+		function($scope,Board,Account,$auth,toastr,$window,$state,$filter,$timeout){
+			$window.scrollTo(0,0);
+
+			$scope.currentPage = 0;
+
+			$scope.paging = {
+				total : 10,
+				current : $state.params.pageNum || 1,
+				onPageChanged : loadPages
+			}
+
+			function loadPages(){
+				console.log('current page is : '+$scope.paging.current);
+				$scope.currentPage = $scope.paging.current;
+
+				var data = {
+					currentPage: $scope.currentPage
+				}
+
+				Board.pagingArticles(data).then(function(res){
+					console.log(res.data.docs);
+					$scope.articles = res.data;
+					$scope.paging.total = res.data.pages;
+				})
+			}
+
+			/*Board.pagingArticles(paging).then(function(res){
 				$scope.articles = res.data;
+				$scope.totalItems = res.data.length;
+				$scope.availableSearchParams = [
+					{key:"title",name:"Title",placeholder:"Title..."}
+				]
+
+				$scope.numPerPage = 3;
+				var currentPage;
+				if($state.params.pageNum != 1){
+					currentPage = $state.params.pageNum;
+				}else{
+					currentPage = 1;
+				}
+
+				$scope.filterBox = '';
+
+				function filterItems(filterValue){
+					return $filter('filter')($scope.articles,filterValue);
+				}
+
+				Object.defineProperty($scope, "filterBox",{
+					get : function(){
+						var out = {};
+						out[$scope.queryBy || "$"] = $scope.query;
+						return out;
+					}
+				})
+				$scope.$watch('filterBox',function(filterValue){
+					$scope.itemsToDisplay = filterItems(filterValue);
+					$scope.totalItems = $scope.itemsToDisplay.length;
+
+					$scope.currentPage = 0;
+					$timeout(function(){
+						$scope.currentPage=currentPage;
+					})
+				})
+				$scope.$watch('currentPage',function(currentPage){
+					var offset = (currentPage - 1) * $scope.numPerPage;
+					$scope.itemsToDisplay = filterItems($scope.filterBox).slice(offset,offset + $scope.numPerPage);
+				})
 			}).catch(function(err){
 				console.log(err);
 			})
 			$scope.pageChangeHandler = function(num) {
 			   console.log('going to page ' + num);
-			};
+			};*/
 
-
-
-			$scope.currentPage = 1;
-			$scope.pageSize = 3;
 
 			if($auth.isAuthenticated()){
 				Account.getProfile()
@@ -85,7 +145,9 @@ angular.module('gotboard')
 			}).catch(function(err){
 				console.log(err);
 			})
-
+			$scope.doTheBack = function(){
+				window.history.back();
+			}
 			getProfile();
 
 	//			initLike();

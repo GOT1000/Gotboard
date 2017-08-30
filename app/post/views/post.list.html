@@ -1,5 +1,9 @@
 <section  ng-init="getPosts()">
-
+    <div class="post-header">
+        <div class="title">
+            <span>POST</span>
+        </div>  
+    </div>
     <article dir-paginate="post in posts | filter : q | itemsPerPage : pageSize" current-page="currentPage">
     <div class="blog-item">
         <div class="blog-item-title">
@@ -9,23 +13,23 @@
             <div class="entry-meta">
                 <span class="meta-part">
                     <span class="entry-icon ion-person"></span>
-                    <a ng-bind="post.creator.displayName"></a>
+                    <span class="entry-value" ng-bind="post.creator.displayName"></span>
                 </span>
                 <span class="meta-part">
                     <span class="entry-icon ion-calendar"></span>
-                    <span ng-bind="post.uploadTime | date:'medium'"></span>
+                    <span class="entry-value" ng-bind="post.uploadTime | date:'medium'"></span>
                 </span>
                 <span class="meta-part">
                     <span class="entry-icon ion-chatbubbles"></span>
-                    <span ng-bind="post.comments.length"></span>
+                    <span class="entry-value" ng-bind="post.comments.length"></span>
                 </span>
                 <span class="meta-part">
                     <span class="entry-icon ion-star"></span>
-                    <span ng-bind="post.likes.length"></span>
+                    <span class="entry-value" ng-bind="post.likes.length"></span>
                 </span>
                 <span class="meta-part">
                     <span class="entry-icon ion-eye"></span>
-                    <span ng-bind="post.hit"></span>
+                    <span class="entry-value" ng-bind="post.hit"></span>
                 </span>
             </div>
         </div>
