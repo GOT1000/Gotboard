@@ -1,5 +1,6 @@
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema
+    Schema = mongoose.Schema,
+    mongoosePaginate = require('mongoose-paginate')
     ;
 
 var postSchema = new Schema({
@@ -23,6 +24,10 @@ var postSchema = new Schema({
         type : Schema.ObjectId,
         ref : 'User'
     },
+    creatorName : {
+        type : String,
+        default : ""
+    },
     uploadTime : {
         type : Date,
         default : Date.now
@@ -43,5 +48,5 @@ var postSchema = new Schema({
     }
 });
 
-
+mongoosePaginate(postSchema);
 module.exports = mongoose.model('Post',postSchema);

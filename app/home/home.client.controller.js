@@ -59,6 +59,15 @@ angular.module('gotboard').controller('IndexController',
             $scope.show = function(index){
                 toastr.success(index);
             }
+             $scope.isCurrentPath = function (path){
+                var currentPath = '';
+                if($location.path().indexOf('/',1) != -1){
+                    currentPath = $location.path().substring(0,$location.path().indexOf('/',1))
+                }else{
+                    currentPath = $location.path();
+                }
+                return currentPath == path;
+            };
         }
     ]
 );

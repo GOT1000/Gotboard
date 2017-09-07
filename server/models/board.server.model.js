@@ -21,6 +21,10 @@ var articleSchema = new Schema({
         type : Schema.ObjectId,
         ref : 'User'
     },
+    creatorName : {
+        type : String,
+        default : ""
+    },
     uploadTime : {
         type : Date,
         default : Date.now

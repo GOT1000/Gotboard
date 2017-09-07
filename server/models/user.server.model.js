@@ -4,8 +4,8 @@ var mongoose = require('mongoose'),
     ;
 
 var userSchema = new Schema({
-    email : {type : String, unique : true, lowercase: true,required:true},
-    password : {type : String, select : false,required:true},
+    email : {type : String, unique : true, lowercase: true,required:true,trim:true},
+    password : {type : String, select : false,required:true,trim:true},
     displayName : {type:String,required:true},
     level : {type:String,default:"guest"},
     joinTime : {type:Date, default:Date.now()},

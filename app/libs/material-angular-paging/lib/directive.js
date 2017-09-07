@@ -36,26 +36,30 @@
                 clAlignModel: '=',
                 clPageChanged: '&',
                 clSteps: '=',
-                clCurrentPage: '='
+                clCurrentPage: '=',
+                clTitle:'=',
+                clAuthor:'=',
+                clContent:'=',
+                clRoute:'='
             },
             controller: ClPagingController,
             controllerAs: 'vm',
             template: [
-                '<a ui-sref="root.board.pageNum({pageNum:1})" class="md-icon-button md-raised md-warn" aria-label="First" ng-click="vm.gotoFirst()"><span>{{ vm.first }}</span></a>',
-                '<a ui-sref="root.board.pageNum({pageNum:vm.index})" class="md-icon-button md-raised md-check" aria-label="Previous" ng-click="vm.gotoPrev()" ng-show="vm.index - 1 >= 0"><span>&#60;</span></a>',
-                '<a ui-sref="root.board.pageNum({pageNum:vm.index+i+1})" class="md-icon-button md-raised" aria-label="Go to page {{i+1}}" ng-repeat="i in vm.stepInfo"',
+                '<button title="처음 페이지" class="md-icon-button md-raised md-warn" aria-label="First" ng-click="vm.gotoFirst()"><span>{{ vm.first }}</span></button>',
+                '<button title="이전" class="md-icon-button md-raised md-check" aria-label="Previous" ng-click="vm.gotoPrev()" ng-show="vm.index - 1 >= 0"><span>&#60;</span></button>',
+                '<button title="이동" class="md-icon-button md-raised" aria-label="Go to page {{i+1}}" ng-repeat="i in vm.stepInfo"',
                 ' ng-click="vm.goto(vm.index + i)" ng-show="vm.page[vm.index + i]" ',
-                ' ng-class="{\'md-primary\': vm.page[vm.index + i] == clCurrentPage}">',
+                ' ng-class="{\'md-primary\': vm.page[vm.index + i] == clCurrentPage,\'md-currentPage\':isCurrentPage(vm.index+i+1)}">',
                 ' <span>{{ vm.page[vm.index + i] }}</span>',
-                '</a>',
-                '<a ui-sref="root.board.pageNum({pageNum:vm.index + vm.clSteps+1})" class="md-icon-button md-raised md-check" aria-label="Next" ng-click="vm.gotoNext()" ng-show="vm.index + vm.clSteps < clPages"><span>&#62;</span></a>',
-                '<a ui-sref="root.board.pageNum({pageNum:clPages})" class="md-icon-button md-raised md-warn" aria-label="Last" ng-click="vm.gotoLast()"><span>{{ vm.last }}</span></a>',
+                '</button>',
+                '<button title="다음" class="md-icon-button md-raised md-check" aria-label="Next" ng-click="vm.gotoNext()" ng-show="vm.index + vm.clSteps < clPages"><span>&#62;</span></button>',
+                '<button title="끝 페이지" class="md-icon-button md-raised md-warn" aria-label="Last" ng-click="vm.gotoLast()"><span>{{ vm.last }}</span></button>',
             ].join('')
         };
     }
 
-    ClPagingController.$inject = ['$scope'];
-    function ClPagingController($scope) {
+    ClPagingController.$inject = ['$scope','$stateParams','$state'];
+    function ClPagingController($scope,$stateParams,$state) {
         var vm = this;
 
         vm.first = '<<';
@@ -65,29 +69,59 @@
 
         vm.clSteps = $scope.clSteps;
 
+        $scope.isCurrentPage = function(page){
+            return $stateParams.page == page;
+        }
+
         vm.goto = function (index) {
             $scope.clCurrentPage = vm.page[index];
+            if($scope.clRoute == 'board'){
+                $state.go("root.board",{page:$scope.clCurrentPage},{reload:true});
+            }else if($scope.clRoute == 'post'){
+                $state.go("root.post",{page:$scope.clCurrentPage},{reload:true});
+            }
         };
 
         vm.gotoPrev = function () {
             $scope.clCurrentPage = vm.index;
             vm.index -= vm.clSteps;
+            if($scope.clRoute == 'board'){
+                $state.go("root.board",{page:$scope.clCurrentPage},{reload:true});
+            }else if($scope.clRoute == 'post'){
+                $state.go("root.post",{page:$scope.clCurrentPage},{reload:true});
+            }
         };
 
         vm.gotoNext = function () {
             vm.index += vm.clSteps;
             $scope.clCurrentPage = vm.index + 1;
+            if($scope.clRoute == 'board'){
+                $state.go("root.board",{page:$scope.clCurrentPage},{reload:true});
+            }else if($scope.clRoute == 'post'){
+                $state.go("root.post",{page:$scope.clCurrentPage},{reload:true});
+            }
         };
 
         vm.gotoFirst = function () {
             vm.index = 0;
             $scope.clCurrentPage = 1;
+            if($scope.clRoute == 'board'){
+                $state.go("root.board",{page:1},{reload:true});
+            }else if($scope.clRoute == 'post'){
+                $state.go("root.post",{page:1},{reload:true});
+            }
+            
         };
 
         vm.gotoLast = function () {
             vm.index = parseInt($scope.clPages / vm.clSteps) * vm.clSteps;
             vm.index === $scope.clPages ? vm.index = vm.index - vm.clSteps : '';
             $scope.clCurrentPage = $scope.clPages;
+            if($scope.clRoute == 'board'){
+                $state.go("root.board",{page:$scope.clCurrentPage},{reload:true});
+            }else if($scope.clRoute == 'post'){
+                $state.go("root.post",{page:$scope.clCurrentPage},{reload:true});
+            }
         };
 
         $scope.$watch('clCurrentPage', function (value) {

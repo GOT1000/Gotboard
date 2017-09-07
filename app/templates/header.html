@@ -49,14 +49,14 @@
              <div id="navbar" class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul id="menu-all-pages" class="nav navbar-nav left">
                         <li id="menu-item-1636" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-1636" ng-class="{active : isCurrentPath('/')}"><a href="/" class="dropdown-toggle">Home</a></li>
-                        <li id="menu-item-1636" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-1636" ng-class="{active : isCurrentPath('/post')}"><a ui-sref=".post" title="Posts">Post</a></li>
-                        <li id="menu-item-1636" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-1636" ng-class="{active : isCurrentPath('/board')}"><a ui-sref=".board" title="Board">Board</a></li>
+                        <li id="menu-item-1636" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-1636" ng-class="{active : isCurrentPath('/post')}"><a ui-sref=".post({page:1,title:'',content:''})" title="Posts">Post</a></li>
+                        <li id="menu-item-1636" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-1636" ng-class="{active : isCurrentPath('/board')}"><a ui-sref=".board({page:1,title:'',author:'',content:''})" title="Board">Board</a></li>
                         <li id="menu-item-1801" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-1801" ng-class="{active : isCurrentPath('/about')}"><a ui-sref=".about">About</a></li>
                     </ul>
                     <ul id="menu-all-pages" class="nav navbar-nav right">
                         <li id="menu-item-1801" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-1801" ng-class="{active : isCurrentPath('/login')}"><a ui-sref=".login" ng-show="!isAuthenticated()">Log In</a></li>
-                        <li><a ui-sref=".signup" ng-show="!isAuthenticated()">Sign Up</a></li>
-                        <li id="menu-item-1801" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-1801" ng-class="{active : isCurrentPath('/signup')}"><a ui-sref=".myPage" ng-show="isAuthenticated()">My Page</a></li>
+                        <li ng-class="{active : isCurrentPath('/signup')}"><a ui-sref=".signup" ng-show="!isAuthenticated()">Sign Up</a></li>
+                        <li id="menu-item-1801" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-1801" ng-class="{active : isCurrentPath('/myPage')}"><a ui-sref=".myPage" ng-show="isAuthenticated()">My Page</a></li>
                         <li><a href="#" ng-click="logout()" ng-show="isAuthenticated()">Log Out</a></li>
                     </ul>
                 </div> 

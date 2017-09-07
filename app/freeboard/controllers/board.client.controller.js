@@ -1,22 +1,42 @@
 angular.module('gotboard')
 	.controller('Board.IndexController',
-		function($scope,Board,Account,$auth,toastr,$window,$state,$filter,$timeout){
+		function($scope,Board,Account,$auth,toastr,$location,$window,$state,$stateParams,$filter,$timeout){
+
 			$window.scrollTo(0,0);
 
 			$scope.currentPage = 0;
 
+
 			$scope.paging = {
 				total : 10,
-				current : $state.params.pageNum || 1,
-				onPageChanged : loadPages
+				current : $stateParams.page || 1,
+				onPageChanged : loadPages,
+				title : decodeURI($stateParams.title) || '',
+				author : decodeURI($stateParams.author) || '',
+				content : decodeURI($stateParams.content) || '',
+				route : "board"
 			}
+
+			$scope.selectedOption = [
+				{kind:'제목',val:1},
+				{kind:'작성자',val:2},
+				{kind:'내용',val:3}
+			]
+
+			$scope.optSelected = $scope.selectedOption[0]
 
 			function loadPages(){
 				console.log('current page is : '+$scope.paging.current);
 				$scope.currentPage = $scope.paging.current;
+				$scope.titleParam = $scope.paging.title;
+				$scope.authorParam = $scope.paging.author;
+				$scope.contentParam = $scope.paging.content;
 
 				var data = {
-					currentPage: $scope.currentPage
+					currentPage: $scope.currentPage,
+					titleParam : $scope.titleParam,
+					authorParam : $scope.authorParam,
+					contentParam : $scope.contentParam
 				}
 
 				Board.pagingArticles(data).then(function(res){
@@ -26,6 +46,34 @@ angular.module('gotboard')
 				})
 			}
 
+			$scope.searchSubmit = function(){
+				searchFunc();
+			}
+
+			$scope.pressEnter = function(keyEvent){
+				if(keyEvent.which === 13){
+					searchFunc();
+				}
+			}
+
+			var searchFunc = function(){
+				var searchVal = {};
+
+					searchVal.page = 1;
+
+					searchVal.title = '';
+					searchVal.author = '';
+					searchVal.content = '';
+
+					if($scope.optSelected.val == 1){
+						searchVal.title = $scope.search;
+					}else if($scope.optSelected.val == 2){
+						searchVal.author = $scope.search;
+					}else if($scope.optSelected.val == 3){
+						searchVal.content = $scope.search;
+					}
+					$state.go('root.board',searchVal,{reload:true});	
+			} 
 			/*Board.pagingArticles(paging).then(function(res){
 				$scope.articles = res.data;
 				$scope.totalItems = res.data.length;
@@ -87,7 +135,10 @@ angular.module('gotboard')
 		}
 	)
 	.controller('Board.CreateController',
-		function($scope,Board,$state,Account,Upload,toastr,$timeout){
+		function($scope,Board,$state,Account,Upload,toastr,$timeout,$window){
+
+			$window.scrollTo(0,0);
+
 			$scope.froalaOptions = {
 					toolbarButtons : ["undo","redo","|","bold","italic","underline","strikeThrough","fontFamily","fontSize","color","|","align","indent","outdent","-","insertLink","insertImage","insertVideo","insertFile","insertTable","emoticons","html"],
 					toolbarButtonsMD : ["undo","redo","|","bold","italic","underline","strikeThrough","fontFamily","fontSize","color","|","align","indent","outdent","-","insertLink","insertImage","insertVideo","insertFile","insertTable","emoticons","html"],
@@ -109,7 +160,7 @@ angular.module('gotboard')
 						article.title = $scope.title;
 						article.content = $scope.content;
 						article.creator = response.data;
-
+						article.creatorName = response.data.displayName;
 
 		                Upload.upload({
 		                	url : '/api/articles',
@@ -263,7 +314,10 @@ angular.module('gotboard')
 		}
 	)
 	.controller('Board.EditController',
-		function($scope,$auth,Board,$stateParams,$state,Account,toastr,Upload){
+		function($scope,$auth,Board,$stateParams,$state,Account,toastr,Upload,$window){
+
+			$window.scrollTo(0,0);
+
 			$scope.froalaOptions = {
 					toolbarButtons : ["undo","redo","|","bold","italic","underline","strikeThrough","fontFamily","fontSize","color","|","align","indent","outdent","-","insertLink","insertImage","insertVideo","insertFile","insertTable","emoticons","html"],
 					toolbarButtonsMD : ["undo","redo","|","bold","italic","underline","strikeThrough","fontFamily","fontSize","color","|","align","indent","outdent","-","insertLink","insertImage","insertVideo","insertFile","insertTable","emoticons","html"],

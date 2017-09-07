@@ -2,7 +2,7 @@
   <div class="row">
     <div class="center-form panel">
       <div class="panel-body">
-        <h2 class="text-center">Sign up</h2>
+        <h2>Sign up</h2>
         <form method="post" ng-submit="signup()" name="signupForm">
           <div class="form-group has-feedback" ng-class="{ 'has-error' : signupForm.displayName.$invalid && signupForm.displayName.$dirty }">
             <input class="form-control input-lg" type="text" name="displayName" ng-model="user.displayName" placeholder="Name" required autofocus>
@@ -33,7 +33,7 @@
               <div ng-message="compareTo">패스워드가 일치하지 않습니다.</div>
             </div>
           </div>
-          <button type="submit" ng-disabled="signupForm.$invalid" class="btn btn-lg btn-block btn-primary">Sign up</button>
+          <button type="submit" ng-disabled="signupForm.$invalid" class="btn btn-lg btn-block btn-primary">회원가입</button>
           <br/>
           <p class="text-center text-muted"><small>계정이 있으십니까?</small><a ui-sref="root.login"> <small>로그인</small></a></p>
         </form>

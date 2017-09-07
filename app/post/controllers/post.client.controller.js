@@ -1,8 +1,69 @@
 angular.module('gotboard')
 	.controller('Post.IndexController',
-		function($scope,Posts,Account,$auth,toastr,$window){
+		function($scope,Posts,Account,$auth,toastr,$window,$stateParams,$state){
 			$window.scrollTo(0,0);
-			Posts.getPosts().then(function(res){
+
+			$scope.currentPage = 0;
+
+			$scope.paging = {
+				total : 10,
+				current : $stateParams.page || 1,
+				onPageChanged : loadPages,
+				title : decodeURI($stateParams.title) || '',
+				content : decodeURI($stateParams.content) || '',
+				route : "post"
+			}
+
+			$scope.selectedOption = [
+				{kind:'제목',val:1},
+				{kind:'내용',val:2}
+			]
+
+			$scope.optSelected = $scope.selectedOption[0];
+
+			function loadPages(){
+				$scope.currentPage = $scope.paging.current;
+				$scope.titleParam = $scope.paging.title;
+				$scope.contentParam = $scope.paging.content;
+
+				var data = {
+					currentPage : $scope.currentPage,
+					titleParam : $scope.titleParam,
+					contentParam : $scope.contentParam
+				}
+
+				Posts.pagingPosts(data).then(function(res){
+					$scope.posts = res.data;
+					$scope.paging.total = res.data.pages;
+				})
+			}
+			
+			$scope.searchSubmit = function(){
+				searchFUnc();
+			}
+
+			$scope.pressEnter = function(keyEvent){
+				if(keyEvent.which === 13){
+					searchFunc();
+				}
+			}
+
+			function searchFunc(){
+				var searchVal = {};
+
+				searchVal.page = 1;
+
+				searchVal.title = '';
+				searchVal.content = '';
+
+				if($scope.optSelected.val == 1){
+					searchVal.title = $scope.search;
+				}else if($scope.optSelected.val == 2){
+					searchVal.content = $scope.search;
+				}
+				$state.go('root.post',searchVal,{reload:true});	
+			}
+			/*Posts.getPosts().then(function(res){
 				$scope.posts = res.data;
 			}).catch(function(err){
 				console.log(err);
@@ -13,7 +74,7 @@ angular.module('gotboard')
 
 			$scope.currentPage = 1;
 			$scope.pageSize = 3;
-
+*/
 			if($auth.isAuthenticated()){
 				Account.getProfile()
 				.then(function(response){
@@ -26,7 +87,10 @@ angular.module('gotboard')
 		}
 	)
 	.controller('Post.CreateController',
-		function($scope,Posts,$state,Account,Upload,toastr,$timeout){
+		function($scope,Posts,$state,Account,Upload,toastr,$timeout,$window){
+
+			$window.scrollTo(0,0);
+
 			$scope.froalaOptions = {
 					toolbarButtons : ["undo","redo","|","bold","italic","underline","strikeThrough","fontFamily","fontSize","color","|","align","indent","outdent","-","insertLink","insertImage","insertVideo","insertFile","insertTable","emoticons","html"],
 					toolbarButtonsMD : ["undo","redo","|","bold","italic","underline","strikeThrough","fontFamily","fontSize","color","|","align","indent","outdent","-","insertLink","insertImage","insertVideo","insertFile","insertTable","emoticons","html"],
@@ -206,7 +270,10 @@ angular.module('gotboard')
 		}
 	)
 	.controller('Post.EditController',
-		function($scope,$auth,Posts,$stateParams,$state,Account,toastr,Upload){
+		function($scope,$auth,Posts,$stateParams,$state,Account,toastr,Upload,$window){
+
+			$window.scrollTo(0,0);
+
 			$scope.froalaOptions = {
 					toolbarButtons : ["undo","redo","|","bold","italic","underline","strikeThrough","fontFamily","fontSize","color","|","align","indent","outdent","-","insertLink","insertImage","insertVideo","insertFile","insertTable","emoticons","html"],
 					toolbarButtonsMD : ["undo","redo","|","bold","italic","underline","strikeThrough","fontFamily","fontSize","color","|","align","indent","outdent","-","insertLink","insertImage","insertVideo","insertFile","insertTable","emoticons","html"],

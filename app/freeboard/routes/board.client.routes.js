@@ -11,23 +11,20 @@ angular.module('gotboard').config(
 	        return deferred.promise;
     	}];		
     	$urlRouterProvider.when('/board',function($state){
-    		$state.go('root.board.pageNum',{pageNum:1})
+    		$state.go('root.board',{page:1})
     	});
     	$urlRouterProvider.when('/board/',function($state){
-    		$state.go('root.board.pageNum',{pageNum:1})
+    		$state.go('root.board',{page:1})
     	});
 		$stateProvider
 			.state('root.board',{
-	            url:'/board',
+	            url:'/board?page?title?author?content',
 	            views : {
 	                'container@' : {
 	                    templateUrl: 'freeboard/views/board.list.html',
 	                    controller : 'Board.IndexController as vm'
 	                }
 	            }
-	        })
-	        .state('root.board.pageNum',{
-	        	url: '/:pageNum'
 	        })
 			.state('root.board.create',{
 				url : '/create',

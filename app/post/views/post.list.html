@@ -4,11 +4,11 @@
             <span>POST</span>
         </div>  
     </div>
-    <article dir-paginate="post in posts | filter : q | itemsPerPage : pageSize" current-page="currentPage">
+    <article ng-repeat="post in posts.docs">
     <div class="blog-item">
         <div class="blog-item-title">
             <h2 class="blog-title">
-            <a title="게시물 읽기" ui-sref=".read({id : post._id})" ng-bind="post.title"></a>
+            <a title="게시물 읽기" ui-sref=".read({id : post._id,page:'',title:'',content:''})" ng-bind="post.title"></a>
             </h2>
             <div class="entry-meta">
                 <span class="meta-part">
@@ -53,11 +53,15 @@
     </div>
     </article>
 
-    <div class="text-center">
-          <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="post/views/dirPagination.tpl.html"></dir-pagination-controls>
+    <div class="text-center paging-block">
+        <cl-paging cl-pages="paging.total" cl-title="paging.title" cl-content="paging.content" cl-route="paging.route" cl-steps="5" cl-page-changed="paging.onPageChanged()" cl-align="start start" cl-current-page="paging.current"></cl-paging>
     </div>
     <div class="text-center search-block">
-         <input ng-model="q" id="search" class="form-control" placeholder="검색어 입력(3글자 이상)">
+         <select style="position:relative;margin-top:15px;display: inline-block;width:100px;" ng-model="optSelected" ng-options="data as data.kind for data in selectedOption">
+        </select>
+
+        <input type="text" ng-model="search" ng-keypress="pressEnter($event)">
+        <button ng-click="searchSubmit()" class="btn-search"><span class="ion-search" style="font-size:18px;"></span></button>
     </div>
 
     <div ng-hide="!currentUser" style="margin-bottom:15px;">

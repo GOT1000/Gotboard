@@ -151,16 +151,43 @@ textarea {
 
 /* Login Form*/
 .panel {
-  border-color: #cfd9D7;
-  border-radius: 2px;
-  box-shadow: 0 8px 17px rgba(0, 0, 0, .2);
+  border:none;
 }
-
+.panel-body h2{
+  font-family: "Interstate",sans-serif;
+  color:#333;
+  padding: 10px 0;
+  margin-bottom: 15px;
+  font-weight: 100;
+  border-bottom: 1px solid #f2f2f2;
+}
 .center-form {
   width: 330px;
-  margin: 7% auto;
+  margin: 50px auto 7%;
 }
-
+.panel-body input{
+  background-color: #f2f2f2;
+  color:#333;
+  box-shadow: none;
+  border-radius: none;
+  font-family: "Interstate",sans-serif;
+}
+.btn-block{
+  margin-top:30px;
+  border-radius: 0;
+  background-color: #446cb3;
+  font-family: "Interstate",sans-serif;
+  color:#fff;
+  font-weight: 100;
+  transition: all .3s ease;
+  -webkit-transition:all .3s ease;
+}
+.btn-block:hover{
+  background-color:#333;
+  color:#fff;
+  transition: all .3s ease;
+  -webkit-transition:all .3s ease;
+}
 /* Alignment */
 .alignleft {
   display: inline;
@@ -280,7 +307,8 @@ textarea {
 }
 @media (min-width:992px){
   #content .container{
-    width:100%;
+    width:1000px;
+
   }
 }
 @media (min-width:1160px){
@@ -482,7 +510,7 @@ hr.section-divider {
 .main-section .blog-posts-title .border,.board-section .blog-articles-title .border{
   width:100%;
   height:3px;
-  background-color: #dfdfdf;
+  background-color: #f2f2f2;
   margin-bottom:10px;
   position: absolute;
   top:45%;
@@ -1469,6 +1497,23 @@ section .post-header,section .board-header{
 .search-block{
   margin:15px auto;
 }
+.board-header .btn-create{
+  font-size: 12px;
+  font-family: 'Interstate',sans-serif;
+  position: relative;
+  width:60px;
+  float:right;
+  margin-top:7px;
+  text-align: center;
+  color:#333;
+}
+.board-header .btn-create:hover{
+  color:#446cb3;
+}
+.paging-block a{
+  cursor: pointer;
+}
+
 .post-item{
   border:1px solid #f2f2f2;
   border-radius: 3px;
@@ -1823,7 +1868,7 @@ section .board-header{
   font-family: 'Interstate',sans-serif;
   padding:20px 0;
 }
-.paging-block a{
+.paging-block button{
   background-color: #446cb3;
   color:#fff;
   border-radius: 50%;
@@ -1834,6 +1879,9 @@ section .board-header{
   margin: 0 2px;
   position: relative;
   display:inline-block;
+  border:none;
+  outline: none;
+  box-shadow: none;
 }
 .paging-block span{
   text-align: center;
@@ -1855,6 +1903,11 @@ section .board-header{
   font-weight: 600;
   color:#333;
   width:30px;
+}
+.paging-block .md-currentPage{
+  background-color:#bfbfbf;
+  cursor: default;
+  pointer-events: none;
 }
 /* =Account
 ----------------------------------------------- */

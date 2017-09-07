@@ -13,7 +13,7 @@ angular.module('gotboard').config(
 
 		$stateProvider
 			.state('root.post',{
-	            url:'/post',
+	            url:'/post?page?title?content',
 	            views : {
 	                'container@' : {
 	                    templateUrl: 'post/views/post.list.html',

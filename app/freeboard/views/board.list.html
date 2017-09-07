@@ -2,13 +2,15 @@
     <div class="board-header">
         <div class="title">
           <span>BOARD</span>
+          <a ng-hide="!currentUser" title="게시물 작성" ui-sref=".create" class="btn-create" style=""><span class="ion-android-create"></span><span style="margin-left:13px;">글쓰기</span></a>
         </div> 
+
     </div>
 
     <article ng-repeat="article in articles.docs">
         <div class="board-item">
             <div class="title">
-              <a ui-sref=".read({id:article._id})">{{article.title}}</a>
+              <a ui-sref=".read({id:article._id,page:'',title:'',author:'',content:''})">{{article.title}}</a>
             </div>
             <div class="board-item-wrap">
               <div class="profilePic">
@@ -35,13 +37,17 @@
         </div>
     </article>
     <div class="text-center paging-block">
-       <cl-paging cl-pages="paging.total" cl-steps="5" cl-page-changed="paging.onPageChanged()" cl-align="start start" cl-current-page="paging.current"></cl-paging>
+       <cl-paging cl-pages="paging.total"  cl-route="paging.route" cl-title="paging.title" cl-author="paging.author" cl-content="paging.content" cl-steps="5" cl-page-changed="paging.onPageChanged()" cl-align="start start" cl-current-page="paging.current"></cl-paging>
     </div>
     <div class="text-center search-block">
-        <input type="text">
-        <button class="btn-search"><span class="ion-search" style="font-size:18px;"></span></button>
+        <select style="position:relative;margin-top:15px;display: inline-block;width:100px;" ng-model="optSelected" ng-options="data as data.kind for data in selectedOption">
+        </select>
+
+        <input type="text" ng-model="search" ng-keypress="pressEnter($event)">
+        <button ng-click="searchSubmit()" class="btn-search"><span class="ion-search" style="font-size:18px;"></span></button>
+
     </div>
-    <div ng-hide="!currentUser" style="margin-bottom:15px;">
-        <a title="게시물 작성" ui-sref=".create" class="btn btn-default">게시물 작성</a>
-    </div>
+<!--     <div ng-message="pattern"></div> -->
+
 </section>
+

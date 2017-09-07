@@ -10,8 +10,9 @@ var Post = require('../../models/post.server.model');
 /*var userService = require('../../services/user.server.service');*/
 
 router.get('/',listPost)
+	  .get('/:page',pagingPost)
 	  .post('/',multipartyMiddleware,createPost);
-router.get('/:id',readPost)
+router.get('/view/:id',readPost)
 	  .put('/:id',multipartyMiddleware,updatePost)
       .delete('/:id',deletePost);
 router.post('/:id/comment',createComment)
@@ -35,6 +36,30 @@ function listPost(req,res){
 			return next(err);
 		}
 		res.send(post);
+	})
+}
+function pagingPost(req,res){
+	var params = {};
+	if(req.query.title != '' && req.query.title != undefined && req.query.title != 'undefined'){
+		var titledata = {};
+		titledata.$regex = '.*'+req.query.title+'.*';
+		titledata.$options = 'i';
+		params.title = titledata;
+	}
+	if(req.query.content != '' && req.query.content != undefined && req.query.content != 'undefined'){
+		var contentdata = {};
+		contentdata.$regex = '.*'+req.query.content+'.*';
+		contentdata.$options = 'i';
+		params.content = contentdata;
+	}
+	var page = req.params.page;
+
+	Post.paginate(params,{page:page,populate:'creator',limit:3,sort:'-uploadTime'},function(err,result){
+		console.log(result);
+		if(err){
+			console.log(err);
+		}
+		res.send(result);
 	})
 }
 function createPost(req,res){

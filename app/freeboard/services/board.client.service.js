@@ -5,14 +5,14 @@ angular.module('gotboard').factory('Board',
 					return $http.get("/api/articles");
 				},
 				pagingArticles : function(data){
-					var http;
-					if(data.search != undefined){
-						http = $http.get("/api/articles/"+data.currentPage+'/?search='+data.search);
+					return $http.get("/api/articles/"+data.currentPage+'/?title='+data.titleParam+'&author='+data.authorParam+'&content='+data.contentParam);
+					/*if(data.search != undefined){
+						http = $http.get("/api/articles/"+data.currentPage+'/?search='+data.search+'?title='+data.);
 					}else{
 						http = $http.get("/api/articles/"+data.currentPage);
 					}
 
-					return http;
+					return http;*/
 				},
 				getArticle : function(id){
 					return $http.get("/api/articles/view/"+id);

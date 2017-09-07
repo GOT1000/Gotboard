@@ -45,8 +45,58 @@ function listArticle(req,res){
 }
 function pagingArticle(req,res){
 	console.log(req.params.page)
+	console.log(req.query.title);
+	console.log(req.query.author);
+	var params = {};
+	if(req.query.title != '' && req.query.title != undefined && req.query.title != 'undefined'){
+		var titledata = {};
+		titledata.$regex = '.*'+req.query.title+'.*';
+		titledata.$options = 'i';
+		params.title = titledata;
+		console.log('title 있음')
+	}
+	if(req.query.author != '' && req.query.author != undefined && req.query.author != 'undefined'){
+		var authordata = {};
+		authordata.$regex = '.*'+req.query.author+'.*';
+		authordata.$options = 'i';
+		params.creatorName = authordata;
+		console.log('author 있음')
+	}
+	if(req.query.content != '' && req.query.content != undefined && req.query.content != 'undefined'){
+		var contentdata = {};
+		contentdata.$regex = '.*'+req.query.content+'.*';
+		contentdata.$options = 'i';
+		params.content = contentdata;
+		console.log('content 있음');
+	}
 	var page = req.params.page;
-	Article.paginate({},{page: page, limit:1, populate:'creator',sort:'-uploadTime'},function(err,result){
+/*	var count = 0;
+	var limit = 5;
+	console.log(params);
+	Article.find({},function(err,result){
+		count = result.length;
+	});
+	Article.find().populate({path:'creator'}).where('title').eq('123').sort('-uploadTime').paginate(page,limit)
+	.exec(function(err,data){
+		var result = {};
+
+		console.log('data: ',data);
+		data = data.filter(function(doc){
+			console.log('=======================');
+			console.log(doc.creator.displayName);
+			return doc.creator.displayName=='123';
+		})
+		console.log('docs: ', data)
+		console.log('total: ',count)
+		result.docs = docs;
+		result.total = count;
+		result.limit = limit;
+		result.page = page;
+		result.pages = Math.ceil(count/limit);
+		res.send(result);
+	})
+*/
+	Article.paginate(params,{page: page,populate:'creator', limit:10,sort:'-uploadTime'},function(err,result){
 		console.log(result);
 		if(err){
 			console.log(err);

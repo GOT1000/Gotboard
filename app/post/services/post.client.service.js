@@ -4,8 +4,11 @@ angular.module('gotboard')
 			getPosts : function(){
 				return $http.get('/api/posts');
 			},
+			pagingPosts : function(data){
+				return $http.get('/api/posts/'+data.currentPage+'/?title='+data.titleParam);
+			},
 			getPost : function(id){
-				return $http.get('/api/posts/'+id);
+				return $http.get('/api/posts/view/'+id);
 			},
 			deletePost : function(id){
 				return $http.delete('/api/posts/'+id);
