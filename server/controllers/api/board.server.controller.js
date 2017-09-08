@@ -33,7 +33,6 @@ function listArticle(req,res){
 		}
 		res.send(data);
 	})*/
-	console.log(req.params);
 	Article.find({},[],{sort:{uploadTime: -1}}).populate(['creator','comments.creator'])
 	.exec(function(err,article,next){
 		if(err){

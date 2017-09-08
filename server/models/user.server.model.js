@@ -5,12 +5,13 @@ var mongoose = require('mongoose'),
 
 var userSchema = new Schema({
     email : {type : String, unique : true, lowercase: true,required:true,trim:true},
-    password : {type : String, select : false,required:true,trim:true},
+    password : {type : String, select : false,trim:true},
     displayName : {type:String,required:true},
     level : {type:String,default:"guest"},
     joinTime : {type:Date, default:Date.now()},
     profilePic : {type:String,default:"/static/img/profile_default.png"},
-    facebook : String
+    facebook : String,
+    google : String
 });
 
 userSchema.pre('save',function(next){

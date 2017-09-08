@@ -19,6 +19,7 @@ module.exports = router;
 
 function getCurrentUser(req,res){
     User.findById(req.user, function(err,user){
+        console.log(user);
         res.send(user);
     })
 }
@@ -112,19 +113,30 @@ function updateCurrentUser(req,res){
 }
 
 function removeCurrentUser(req,res){
-    User.findById(req.user, '+password',function(err,user){
-        user.comparePassword(req.body.password,function(err,isMatch){
-            if(!isMatch){
-                return res.status(401).send({message:'패스워드가 올바르지 않습니다.'});
-            }
-             User.remove({email : req.body.email},function(err){
-                if(err){
-                     return res.status(500).send(err);
-                }
-                console.log("deleted");
-                res.send("deleted");
+    if(req.body.password){
+        User.findById(req.user, '+password',function(err,user){
+                user.comparePassword(req.body.password,function(err,isMatch){
+                    if(!isMatch){
+                        return res.status(401).send({message:'패스워드가 올바르지 않습니다.'});
+                    }
+                     User.remove({email : req.body.email},function(err){
+                        if(err){
+                             return res.status(500).send(err);
+                        }
+                        console.log("deleted");
+                        res.send("deleted");
+                    })
+                })
             })
+    }else{
+        User.remove({_id : req.body._id},function(err){
+            if(err){
+                return res.status(500).send(err);
+            }
+            console.log("deleted");
+            res.send("deleted");
         })
-    })
+    }
+   
    
 }

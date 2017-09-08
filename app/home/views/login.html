@@ -17,8 +17,17 @@
           <p class="text-center text-muted">
             <small>계정이 없으십니까? <a ui-sref="root.signup">회원가입</a></small>
           </p>
+           <div class="signup-or-separator">
+            <h6 class="text">or</h6>
+            <hr>
+          </div>
         </form>
-        
+        <button class="btn btn-block btn-lg btn-facebook" ng-click="authenticate('facebook')">
+          <i class="ion-social-facebook" style="margin-right:6px;font-size:20px;"></i> <span style="font-size:16px;">페이스북 계정으로 로그인</span>
+        </button>
+        <button class="btn btn-block btn-lg btn-google-plus" ng-click="authenticate('google')">
+          <span class="ion-social-googleplus" style="margin-right:4px; font-size:20px;"></span> <span style="font-size:16px;">구글 계정으로 로그인</span>
+        </button>
       </div>
     </div>
   </div>

@@ -19,7 +19,7 @@ var app = angular
         'yaru22.angular-timeago'
     ]);
 
-app.config(function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider){
+app.config(function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $authProvider){
 
     var skipIfLoggedIn = ['$q','$auth',function($q,$auth){
         var deferred = $q.defer();
@@ -107,8 +107,29 @@ app.config(function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider){
         })
 
     $urlRouterProvider.otherwise('/');
-
-
+/*
+    $authProvider.facebook({
+        url:'/auth/facebook',
+        clientId : '114994822549590',
+        responseType : 'token',
+    })
+    $authProvider.google({
+        clientId : '728532442564-uddcq7t8u9c8of6j5bila3bkkak2b0if.apps.googleusercontent.com',
+        responseType : 'token',
+        url:'/auth/google'
+    })*/
+    $authProvider.oauth2({
+        name:'facebook',
+        url:'/auth/facebook',
+        clientId:'114994822549590',
+        authorizationEndpoint: 'https://www.facebook.com/v2.5/dialog/oauth',
+        redirectUri: window.location.origin + '/',
+        requiredUrlParams: ['display', 'scope'],
+        scope: ['email'],
+        scopeDelimiter: ',',
+        display: 'popup',
+        popupOptions: { width: 580, height: 400 }
+    })
 });
 
 app.value('froalaConfig',{

@@ -20,9 +20,10 @@
 			</div>
 		</div>
 		<div class="profile-item-btn">
-			<a ui-sref=".edit">회원 정보 수정</a>
+			<a ng-show="!user.facebook" ui-sref=".edit">회원 정보 수정</a>
 			<br>
-			<a ui-sref=".remove">회원 탈퇴</a>
+			<a ng-show="!user.facebook" ui-sref=".remove">회원 탈퇴</a>
+			<button ng-show="user.facebook" ng-click="removeProfile()">회원 탈퇴</button>
 		</div>
 	</div>
 </section>

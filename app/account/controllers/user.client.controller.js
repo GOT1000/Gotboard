@@ -28,6 +28,28 @@ angular.module('gotboard').controller('LoginController',[
             })
         }
 
+        $scope.authenticate = function(provider){
+            $auth.authenticate(provider)
+                .then(function(response){
+                    toastr.success(response.data);
+                    $window.localStorage.currentUser = JSON.stringify(response.data.user);
+                    $rootScope.currentUser = JSON.parse($window.localStorage.currentUser);
+                    toastr.success(provider+' 계정으로 로그인 했습니다.');
+                    $location.path('/');
+                })
+                .catch(function(error){
+                    if(error.message){
+                        toastr.error(error.message);
+                        console.log(error.message);
+                    }else if(error.data){
+                        toastr.error(error.data.message,error.status);
+                        console.log(error.data.message)
+                    }else{
+                        toastr.error(error);
+                    }
+                });
+        }
+
     }
 ])
 
@@ -55,13 +77,32 @@ angular.module('gotboard').controller('ProfileController',[
     '$scope',
     '$auth',
     'Account',
-    function($scope,$auth,Account){
+    'toastr',
+    '$state',
+    function($scope,$auth,Account,toastr,$state){
 
         getProfile();
+
+        $scope.removeProfile = function(){
+            Account.removeProfile($scope.user)
+            .then(function(res){
+                if(res.data == "deleted"){
+                    $auth.removeToken();
+                    toastr.success("회원 탈퇴에 성공했습니다.");
+                        /*$auth.removeToken();*/
+                     $state.go("root.home");
+                }
+                
+            })
+            .catch(function(response){
+                toastr.error(response);
+            })
+        }
 
         function getProfile(){
             Account.getProfile()
             .then(function(response){
+                console.log(response.data);
                 $scope.user = response.data;
             })
             .catch(function(error){
